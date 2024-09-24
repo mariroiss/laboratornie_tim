@@ -110,13 +110,12 @@ void PrintAddPipe(Pipe& NewPipe)
     }
     else
     {
-        cout << "Name pipe: " << NewPipe.NamePipe 
+        cout << "Name pipe: " << NewPipe.NamePipe
             << "\tLength pipe: " << NewPipe.Length
-            << "\tDiameter pipe: " << NewPipe.Diameter 
+            << "\tDiameter pipe: " << NewPipe.Diameter
             << "\tRepair: " << NewPipe.Repair << endl;
     }
 }
-
 
 
 
@@ -127,7 +126,7 @@ Station AddStation()
     Station NewStation;
     cout << endl << "Adding a new CS..." << endl;
     cout << "Enter the station name: ";
-    cin>> NewStation.NameStation;
+    cin >> NewStation.NameStation;
 
     cout << "Enter the number of workshops: ";
     check_int(NewStation.NumberWorkshops);
@@ -159,12 +158,68 @@ void PrintAddStation(Station& NewStation)
 
     else
     {
-     cout << "Name: " << NewStation.NameStation 
-         << "\tWorkshops: " << NewStation.NumberWorkshops
-         << "\tActive workshops: " << NewStation.ActiveWorkshops 
-         << "\tEfficiency: "
-         << NewStation.Effectivness << endl;
+        cout << "Name: " << NewStation.NameStation 
+             << "\tWorkshops: " << NewStation.NumberWorkshops
+             << "\tActive workshops: " << NewStation.ActiveWorkshops 
+             << "\tEfficiency: " << NewStation.Effectivness << endl;
 
     }
 
+}
+
+
+
+int main()
+{
+    Pipe pipe0;
+    Station station0;
+    Pipe repair0;
+
+
+    int menu;
+    while (true) {
+        cout << "\nMenu" << endl
+            << "1. Add pipe" << endl
+            << "2. Add CS" << endl
+            << "3. Show all objects" << endl
+            << "4. Edit status <Under repair>" << endl
+            << "5. Edit Workshop start/stop" << endl
+            << "6. Save changes" << endl
+            << "7. Download to file" << endl
+            << "8. Exit " << endl
+            << endl << "Select command: ";
+        cin >> menu;
+        if (cin.fail() || menu < 1 || menu > 8)
+        {
+            cout << " Please, enter a command number from 1 to 8" << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
+
+
+        switch (menu)
+        {
+        case 1: //add pipe 
+        {
+            pipe0 = AddPipe();
+            PrintAddPipe(pipe0);
+            break;
+        }
+        case 2:
+        {
+            station0 = AddStation();
+            PrintAddStation(station0);
+            break;
+        }
+        
+        case 8:
+        {
+            return false;
+            break;
+        }
+        }
+
+    }
+    return 0;
 }
