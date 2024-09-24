@@ -79,3 +79,43 @@ bool check_bool(bool& bool_data)
     return bool_data;
 }
 
+Pipe AddPipe()
+
+{
+    Pipe NewPipe;
+    cout << endl << "Creating a new pipe" << endl;
+    cout << "Enter the name of the pipe: ";
+    cin >> NewPipe.NamePipe;
+
+    cout << "Enter the length of the pipe: ";
+    check_float(NewPipe.Length);
+
+    cout << "Enter the pipe diameter: ";
+    check_int(NewPipe.Diameter);
+
+    cout << "Enter repair status: 0 (No) or 1 (Yes)?  ";
+    check_bool(NewPipe.Repair);
+
+    return NewPipe;
+
+}
+
+void PrintAddPipe(Pipe& NewPipe)
+
+{
+    cout << endl << "Info about the created pipe" << endl;
+    if (NewPipe.NamePipe == "None")
+    {
+        cout << "The pipe has not been created yet!\n";
+    }
+    else
+    {
+        cout << "Name pipe: " << NewPipe.NamePipe 
+            << "\tLength pipe: " << NewPipe.Length
+            << "\tDiameter pipe: " << NewPipe.Diameter 
+            << "\tRepair: " << NewPipe.Repair << endl;
+    }
+}
+
+
+
