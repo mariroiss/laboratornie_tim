@@ -119,3 +119,52 @@ void PrintAddPipe(Pipe& NewPipe)
 
 
 
+
+
+Station AddStation()
+
+{
+    Station NewStation;
+    cout << endl << "Adding a new CS..." << endl;
+    cout << "Enter the station name: ";
+    cin>> NewStation.NameStation;
+
+    cout << "Enter the number of workshops: ";
+    check_int(NewStation.NumberWorkshops);
+
+    cout << "Enter the number of active workshops: ";
+    check_int(NewStation.ActiveWorkshops);
+
+    while (NewStation.ActiveWorkshops > NewStation.NumberWorkshops)
+    {
+        cout << "The number of active workshops cannot be greater than those available!\n";
+        cout << "Enter the number of active workshops: ";
+        check_int(NewStation.ActiveWorkshops);
+    }
+
+    cout << "Enter the station efficiency indicator (from 0 to 1 with tenths): ";
+    check2_float(NewStation.Effectivness);
+
+    return NewStation;
+}
+
+void PrintAddStation(Station& NewStation)
+
+{
+    cout << endl << "Info about your CS..." << endl;
+    if (NewStation.NameStation == "None")
+    {
+        cout << "No stations available!\n";
+    }
+
+    else
+    {
+     cout << "Name: " << NewStation.NameStation 
+         << "\tWorkshops: " << NewStation.NumberWorkshops
+         << "\tActive workshops: " << NewStation.ActiveWorkshops 
+         << "\tEfficiency: "
+         << NewStation.Effectivness << endl;
+
+    }
+
+}
