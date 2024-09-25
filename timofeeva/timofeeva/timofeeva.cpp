@@ -186,6 +186,31 @@ void PrintAddStation(Station& NewStation)
 
 }
 
+void EditStation(Station& NewStation)
+
+{
+    if (NewStation.NameStation == "None")
+    {
+        cout << "No stations available!\n";
+    }
+
+    else
+    {
+        cout << "Enter the number of active workshops: ";
+        check_int(NewStation.ActiveWorkshops);
+
+        while (NewStation.ActiveWorkshops > NewStation.NumberWorkshops)
+        {
+            cout << "The number of active workshops cannot be greater than those available!\n";
+            cout << "Enter the number of active workshops: ";
+            check_int(NewStation.NumberWorkshops);
+        }
+    }
+
+    PrintAddStation(NewStation);
+
+}
+
 int main()
 {
     Pipe pipe0;
@@ -229,13 +254,32 @@ int main()
             PrintAddStation(station0);
             break;
         }
-
+        case 3:
+        {
+            PrintAddPipe(pipe0);
+            PrintAddStation(station0);
+            break;
+        }
         case 4:
         {
             RepairPipe(pipe0);
             break;
         }
-      
+        case 5:
+        {
+            EditStation(station0);
+            break;
+        }
+        case 6:
+        {
+            cout << "slwo" << endl;
+            break;
+        }
+        case 7:
+        {
+            cout << "slwo" << endl;
+            break;
+        }
         case 8:
         {
             return false;
