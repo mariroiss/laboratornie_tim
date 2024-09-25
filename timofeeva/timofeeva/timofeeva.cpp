@@ -119,6 +119,25 @@ void PrintAddPipe(Pipe& NewPipe)
 
 
 
+void RepairPipe(Pipe& NewPipe)
+
+{
+    if (NewPipe.NamePipe == "None")
+    {
+        cout << "No pipes available!\n";
+    }
+
+    else
+
+    {
+        NewPipe.Repair = !NewPipe.Repair;
+        cout << endl << "You have changed repair status!";
+        PrintAddPipe(NewPipe);
+
+    }
+
+}
+
 
 Station AddStation()
 
@@ -158,16 +177,14 @@ void PrintAddStation(Station& NewStation)
 
     else
     {
-        cout << "Name: " << NewStation.NameStation 
-             << "\tWorkshops: " << NewStation.NumberWorkshops
-             << "\tActive workshops: " << NewStation.ActiveWorkshops 
-             << "\tEfficiency: " << NewStation.Effectivness << endl;
+        cout << "Name: " << NewStation.NameStation
+            << "\tWorkshops: " << NewStation.NumberWorkshops
+            << "\tActive workshops: " << NewStation.ActiveWorkshops
+            << "\tEfficiency: " << NewStation.Effectivness << endl;
 
     }
 
 }
-
-
 
 int main()
 {
@@ -212,7 +229,13 @@ int main()
             PrintAddStation(station0);
             break;
         }
-        
+
+        case 4:
+        {
+            RepairPipe(pipe0);
+            break;
+        }
+      
         case 8:
         {
             return false;
