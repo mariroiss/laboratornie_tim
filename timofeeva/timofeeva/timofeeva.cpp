@@ -4,83 +4,83 @@
 using namespace std;
 
 struct Pipe {
-    string NamePipe = "None";
+    string NameP = "None";
     float Length = 0.0;
     int Diameter = 0;
     bool Repair = false;
 };
 
-struct Station
+struct Cs
 {
-    string NameStation = "None";
-    int NumberWorkshops = 0;
+    string NameCS = "None";
+    int Workshops = 0;
     int ActiveWorkshops = 0;
     float Effectivness = 0;
 };
 
-int proverka_int(int& int_data)
+int pr_int(int& a)
 
 {
-    cin >> int_data;
-    while (cin.fail() || cin.peek() != '\n' || int_data <= 0)
+    cin >> a;
+    while (cin.fail() || cin.peek() != '\n' || a <= 0)
 
     {
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "\nPlease, enter an int type > 0\n";
-        cin >> int_data;
+        cin >> a;
     }
-    return int_data;
+    return a;
 }
-float proverka_float(float& float_data)
+float pr_float(float& a)
 {
-    cin >> float_data;
-    while (cin.fail() || cin.peek() != '\n' || float_data <= 0)
+    cin >> a;
+    while (cin.fail() || cin.peek() != '\n' || a <= 0)
 
     {
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "\nPlease, enter a float type > 0\n";
-        cin >> float_data;
+        cin >> a;
 
     }
-    return float_data;
+    return a;
 
 }
 //проверка на пробелы название
 
-float proverka_float1(float& Effectivness)
+float pr_ef(float& e)
 
 {
-    cin >> Effectivness;
-    while (cin.fail() || cin.peek() != '\n' || (Effectivness < 0) || (Effectivness > 5))
+    cin >> e;
+    while (cin.fail() || cin.peek() != '\n' || (e < 0) || (e > 5))
     {
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "\nPlease, enter a efficiency data from 0 to 5\n";
-        cin >> Effectivness;
+        cin >> e;
 
     }
 
-    return Effectivness;
+    return e;
 }
 
-bool proverka_bool(bool& bool_data)
+bool pr_bool(bool& a)
 
 {
-    cin >> bool_data;
+    cin >> a;
     while (cin.fail() || cin.peek() != '\n')
     {
         cin.clear();
         cin.ignore(100000, '\n');
         cout << "\nPlease, enter a bool type\n";
-        cin >> bool_data;
+        cin >> a;
 
     }
-    return bool_data;
+    return a;
 }
 
- Pipe AddPipe()
+ Pipe sozd_pipe()
 
 {
     Pipe N;
@@ -88,31 +88,31 @@ bool proverka_bool(bool& bool_data)
     cout << "Enter the name of the pipe: ";
 
     cin >> ws;
-    getline(cin, N.NamePipe);
+    getline(cin, N.NameP);
 
     cout << "Enter the length of the pipe: ";
-    proverka_float(N.Length);
+    pr_float(N.Length);
 
     cout << "Enter the pipe diameter: ";
-    proverka_int(N.Diameter);
+    pr_int(N.Diameter);
 
     cout << "Enter repair status: 0 (No) or 1 (Yes)?  ";
-    proverka_bool(N.Repair);
+    pr_bool(N.Repair);
 
     return N;
 }
 
-void PrintAddPipe(Pipe& N)
+void print_p(Pipe& N)
 
 {
     cout << endl << "Info about the created pipe" << endl;
-    if (N.NamePipe == "None")
+    if (N.NameP == "None")
     {
         cout << "The pipe has not been created yet!\n";
     }
     else
     {
-        cout << "Name pipe: " << N.NamePipe
+        cout << "Name pipe: " << N.NameP
             << "\tLength pipe: " << N.Length
             << "\tDiameter pipe: " << N.Diameter
             << "\tRepair: " << N.Repair << endl;
@@ -121,81 +121,77 @@ void PrintAddPipe(Pipe& N)
 
 
 
-void RepairPipe(Pipe& N)
+void repair(Pipe& N)
 
 {
-    if (N.NamePipe == "None")
+    if (N.NameP == "None")
     {
         cout << "No pipes available!\n";
     }
 
     else
-
     {
         N.Repair = !N.Repair;
         cout << endl << "You have changed repair status!";
-        PrintAddPipe(N);
-
+        print_p(N);
     }
-
 }
 
 
-Station AddStation()
+Cs sozd_cs()
 
 {
-    Station NewStation;
+    Cs s;
     cout << endl << "Adding a new CS..." << endl;
 
     cout << "Enter the station name: ";
     cin >> ws;
-    getline(cin, NewStation.NameStation);
+    getline(cin, s.NameCS);
 
 
     cout << "Enter the number of workshops: ";
-    proverka_int(NewStation.NumberWorkshops);
+    pr_int(s.Workshops);
 
     cout << "Enter the number of active workshops: ";
-    proverka_int(NewStation.ActiveWorkshops);
+    pr_int(s.ActiveWorkshops);
 
-    while (NewStation.ActiveWorkshops > NewStation.NumberWorkshops)
+    while (s.ActiveWorkshops > s.Workshops)
     {
         cout << "The number of active workshops cannot be greater than those available!\n";
         cout << "Enter the number of active workshops: ";
-        proverka_int(NewStation.ActiveWorkshops);
+        pr_int(s.ActiveWorkshops);
     }
 
     cout << "Enter the station efficiency indicator (from 0 to 5 with tenths): ";
-    proverka_float1(NewStation.Effectivness);
+    pr_ef(s.Effectivness);
 
-    return NewStation;
+    return s;
 
 }
 
-void PrintAddStation(Station& NewStation)
+void print_cs(Cs& s)
 
 {
     cout << endl << "Info about your CS..." << endl;
-    if (NewStation.NameStation == "None")
+    if (s.NameCS == "None")
     {
         cout << "No stations available!\n";
     }
 
     else
     {
-        cout << "Name: " << NewStation.NameStation
-            << "\tWorkshops: " << NewStation.NumberWorkshops
-            << "\tActive workshops: " << NewStation.ActiveWorkshops
-            << "\tEfficiency: " << NewStation.Effectivness << endl;
+        cout << "Name: " << s.NameCS
+            << "\tWorkshops: " << s.Workshops
+            << "\tActive workshops: " << s.ActiveWorkshops
+            << "\tEfficiency: " << s.Effectivness << endl;
 
     }
 
 }
 
-void EditStation(Station& NewStation)
-
+void edit(Cs& s)
 {
-    if (NewStation.NameStation == "None")
+    if (s.NameCS == "None")
     {
         cout << "No stations available!\n";
     }
@@ -203,26 +199,25 @@ void EditStation(Station& NewStation)
     else
     {
         cout << "Enter the number of active workshops: ";
-        proverka_int(NewStation.ActiveWorkshops);
+        pr_int(s.ActiveWorkshops);
 
-        while (NewStation.ActiveWorkshops > NewStation.NumberWorkshops)
+        while (s.ActiveWorkshops > s.Workshops)
         {
             cout << "The number of active workshops cannot be greater than those available!\n";
-            cout << "Enter the number of active workshops: ";
-            proverka_int(NewStation.NumberWorkshops);
+            cout << "Enter the number of active workshops (<=" << s.Workshops << ")";
+            pr_int(s.Workshops);
         }
     }
-
-    PrintAddStation(NewStation);
-
+    print_cs(s);
 }
 
 void in_file1(ofstream& fout, const Pipe& pipe) {
-    if (pipe.NamePipe == "None") {
+    if (pipe.NameP == "") {
         cout << "There is no data about the pipe to write to the file\n";
     }
     else {
-        fout << pipe.NamePipe << endl;
+        fout << "pipe" << endl;
+        fout << pipe.NameP << endl;
         fout << pipe.Length << endl;
         fout << pipe.Diameter << endl;
         fout << pipe.Repair << endl;
@@ -230,88 +225,63 @@ void in_file1(ofstream& fout, const Pipe& pipe) {
     }
 }
 
-void in_file2(ofstream& fout,  const Station& station) {
-    if (station.NameStation == "None") {
+void in_file2(ofstream& fout,  const Cs& s) {
+    if (s.NameCS == "") {
         cout << "There is no data about the station to write to the file\n";
     }
     else {
-        fout << station.NameStation << endl;
-        fout << station.NumberWorkshops << endl;
-        fout << station.ActiveWorkshops << endl;
-        fout << station.Effectivness << endl;
+        fout << "station" << endl;
+        fout << s.NameCS << endl;
+        fout << s.Workshops << endl;
+        fout << s.ActiveWorkshops << endl;
+        fout << s.Effectivness << endl;
         cout << "The data about the station is written\n";
     }
 }
 
-/* void from_file_pipe(ifstream& fin, Pipe& pipe) {
-    string line;
-    while (getline(fin, line)) {
-        if (line.find("pipe", 0) == 0) {
-            cout << "The data about the pipe was read from the file" << endl;
-            cout << "Info about your pipe: " << endl;
-            getline(fin, pipe.NamePipe);
-            cout << "Name: " << pipe.NamePipe << endl;
-            fin >> pipe.Length;
-            cout << "Length:" << pipe.Length << endl;
-            fin >> pipe.Diameter;
-            cout << "Diameter:" << pipe.Diameter << endl;
-            fin >> pipe.Repair;
-            cout << "Repair:" << pipe.Repair << endl;
-        }
-        else {
-            cout << "There is no data about the pipe in the file" << endl;
-        }
-        /*if (line.find("station", 0) == 0) {
-            cout << "The data about the station was read from the file" << endl;
-            cout << "Info about your station: " << endl;
-            getline(fin, station.namecs);
-            cout << "Name: " << station.namecs << endl;
-            fin >> station.workshops;
-            cout << "Number of workshops: " << station.workshops << endl;
-            fin >> station.act_workshops;
-            cout << "Number of workshops: " << station.act_workshops << endl;
-            fin >> station.efficiency;
-            cout << "Efficiency: " << station.efficiency << endl;
-        }
-        else {
-            cout << "There is no data about the station in the file" << endl;
-        }
-        break;
-    }
-}
-*/
-void from_file_station(ifstream& fin, Station& station) {
-    string line;
-    int k = 0;
-    while (getline(fin, line)) {
-        k++;
-        if (k == 6) {
-            if (line.find("station", 0) == 0) {
-                cout << "The data about the station was read from the file" << endl;
-                cout << "Info about your station: " << endl;
-                getline(fin, station.NameStation);
-                cout << "Name: " << station.NameStation << endl;
-                fin >> station.NumberWorkshops;
-                cout << "Number of workshops: " << station.NumberWorkshops << endl;
-                fin >> station.ActiveWorkshops;
-                cout << "Number of working workshops: " << station.ActiveWorkshops << endl;
-                fin >> station.Effectivness;
-                cout << "Efficiency: " << station.Effectivness << endl;
-            }
-            else {
-                cout << "There is no data about the station in the file" << endl;
-            }
-            break;
-        }
-    }
+void from_file_pipe(ifstream& fin, Pipe& p) {
+    cout << "The data about the pipe was read from the file" << endl;
+    cout << "Info about your pipe: " << endl;
+    getline(fin >> ws, p.NameP);
+    cout << "Name: " << p.NameP << endl;
+    fin >> p.Length;
+    cout << "Length:" << p.Length << endl;
+    fin >> p.Diameter;
+    cout << "Diameter:" << p.Diameter << endl;
+    fin >> p.Repair;
+    cout << "Repair:" << p.Repair << endl;
 }
 
+void from_file_station(ifstream& fin, Cs& s) {
+    cout << "The data about the station was read from the file" << endl;
+    cout << "Info about your station: " << endl;
+    getline(fin >> ws, s.NameCS);
+    cout << "Name: " << s.NameCS << endl;
+    fin >> s.Workshops;
+    cout << "Number of workshops: " << s.Workshops << endl;
+    fin >> s.ActiveWorkshops;
+    cout << "Number of working workshops: " << s.ActiveWorkshops << endl;
+    fin >> s.Effectivness;
+    cout << "Efficiency: " << s.Effectivness << endl;
+}
+
+void all_from_file(ifstream& fin, Pipe& p, Cs& s) {
+    string line;
+    while (getline(fin >> ws, line)) {
+        if (line == "pipe") {
+            from_file_pipe(fin, p);
+        }
+        else if (line == "station") {
+            from_file_station(fin, s);
+        }
+    }
+}
 
 
 int main()
 {
-    Pipe pipe0;
-    Station station0;
+    Pipe p1;
+    Cs st1;
 
     int menu;
     while (true) {
@@ -339,30 +309,30 @@ int main()
         {
         case 1: //add pipe 
         {
-            pipe0= AddPipe();
-            PrintAddPipe(pipe0);
+            p1= sozd_pipe();
+            print_p(p1);
             break;
         }
         case 2:
         {
-            station0=AddStation();
-            PrintAddStation(station0);
+            st1= sozd_cs();
+            print_cs(st1);
             break;
         }
         case 3:
         {
-            PrintAddPipe(pipe0);
-            PrintAddStation(station0);
+            print_p(p1);
+            print_cs(st1);
             break;
         }
         case 4:
         {
-            RepairPipe(pipe0);
+            repair(p1);
             break;
         }
         case 5:
         {
-            EditStation(station0);
+            edit(st1);
             break;
         }
         case 6:
@@ -370,8 +340,8 @@ int main()
             ofstream fout;
             fout.open("vivod.txt", ios::out);
             if (fout.is_open()) {
-                in_file1(fout, pipe0);
-                in_file2(fout, station0);
+                in_file1(fout, p1);
+                in_file2(fout, st1);
                 fout.close();
             }
             break;
@@ -381,12 +351,18 @@ int main()
             ifstream fin;
             fin.open("vivod.txt", ios::in);
             if (fin.is_open()) {
-                from_file_pipe(fin, pipe0);
-                from_file_station(fin, station0);
+                all_from_file(fin, p1, st1);
+                if (p1.NameP == "None") {
+                    cout << "There is no data about the pipe in the file\n";
+                }
+                if (st1.NameCS == "None") {
+                    cout << "There is no data about the station in the file\n";
+                }
                 fin.close();
             }
             break;
         }
+
         case 8:
         {
             return false;
