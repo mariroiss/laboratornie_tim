@@ -4,84 +4,47 @@
 using namespace std;
 
 struct Pipe {
-    string NameP = "None";
-    float Length = 0.0;
-    int Diameter = 0;
-    bool Repair = false;
+    string NameP;
+    float Length;
+    int Diameter;
+    bool Repair;
 };
 
 struct Cs
 {
-    string NameCS = "None";
-    int Workshops = 0;
-    int ActiveWorkshops = 0;
-    float Effectivness = 0;
+    string NameCS;
+    int Workshops;
+    int ActiveWorkshops;
+    int Effectivness;
 };
 
-int pr_int(int& a)
-
+int pr_int(string message, int mn, int mx)
 {
-    cin >> a;
-    while (cin.fail() || cin.peek() != '\n' || a <= 0)
-
+    int a;
+    while ((cin>>a).fail() || cin.peek() != '\n' || a < mn || a > mx)
     {
         cin.clear();
         cin.ignore(100000, '\n');
-        cout << "\nPlease, enter an int type > 0\n";
-        cin >> a;
+        cout << message;
     }
     return a;
 }
-float pr_float(float& a)
-{
-    cin >> a;
-    while (cin.fail() || cin.peek() != '\n' || a <= 0)
 
+float pr_float(string n, int mn, int mx)
+{
+    float a;
+    while ((cin >> a).fail() || cin.peek() != '\n' || a < mn || a > mx)
     {
         cin.clear();
         cin.ignore(100000, '\n');
-        cout << "\nPlease, enter a float type > 0\n";
+
         cin >> a;
-
     }
-    return a;
-
-}
-//проверка на пробелы название
-
-float pr_ef(float& e)
-
-{
-    cin >> e;
-    while (cin.fail() || cin.peek() != '\n' || (e < 0) || (e > 5))
-    {
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "\nPlease, enter a efficiency data from 0 to 5\n";
-        cin >> e;
-
-    }
-
-    return e;
+    return a, mn, mx;
 }
 
-bool pr_bool(bool& a)
-
-{
-    cin >> a;
-    while (cin.fail() || cin.peek() != '\n')
-    {
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "\nPlease, enter a bool type\n";
-        cin >> a;
-
-    }
-    return a;
-}
 
  Pipe sozd_pipe()
-
 {
     Pipe N;
     cout << endl << "Creating a new pipe" << endl;
@@ -91,22 +54,21 @@ bool pr_bool(bool& a)
     getline(cin, N.NameP);
 
     cout << "Enter the length of the pipe: ";
-    pr_float(N.Length);
+    N.Length= pr_float("\nPlease, enter an int type (0, 10000)\n", 0, 10000);
 
     cout << "Enter the pipe diameter: ";
-    pr_int(N.Diameter);
+    N.Diameter= pr_int("\nPlease, enter an int type (0, 10000) \n", 0, 10000);
 
     cout << "Enter repair status: 0 (No) or 1 (Yes)?  ";
-    pr_bool(N.Repair);
+    N.Repair = pr_int("Enter an bool type(0 or 1)", -1, 2);
 
     return N;
 }
 
 void print_p(Pipe& N)
-
 {
     cout << endl << "Info about the created pipe" << endl;
-    if (N.NameP == "None")
+    if (N.NameP == "")
     {
         cout << "The pipe has not been created yet!\n";
     }
@@ -119,16 +81,12 @@ void print_p(Pipe& N)
     }
 }
 
-
-
 void repair(Pipe& N)
-
 {
-    if (N.NameP == "None")
+    if (N.NameP == "")
     {
         cout << "No pipes available!\n";
     }
-
     else
     {
         N.Repair = !N.Repair;
@@ -137,61 +95,46 @@ void repair(Pipe& N)
     }
 }
 
-
 Cs sozd_cs()
-
 {
     Cs s;
     cout << endl << "Adding a new CS..." << endl;
-
     cout << "Enter the station name: ";
     cin >> ws;
     getline(cin, s.NameCS);
 
-
     cout << "Enter the number of workshops: ";
-    pr_int(s.Workshops);
+    s.Workshops= pr_int("\nPlease, enter an int type > 0\n", 0, 10000);
 
     cout << "Enter the number of active workshops: ";
-    pr_int(s.ActiveWorkshops);
-
-    while (s.ActiveWorkshops > s.Workshops)
-    {
-        cout << "The number of active workshops cannot be greater than those available!\n";
-        cout << "Enter the number of active workshops: ";
-        pr_int(s.ActiveWorkshops);
-    }
+    s.ActiveWorkshops=pr_int("\nPlease, enter an int type > 0 and <Workshops \n", 0, s.Workshops);
 
     cout << "Enter the station efficiency indicator (from 0 to 5 with tenths): ";
-    pr_ef(s.Effectivness);
+    s.Effectivness = pr_int("\nPlease, enter a efficiency data from 0 to 5\n", 0, 6);
 
     return s;
 
 }
 
 void print_cs(Cs& s)
-
 {
-    cout << endl << "Info about your CS..." << endl;
-    if (s.NameCS == "None")
+    cout << endl << "Info about the created CS" << endl;
+    if (s.NameCS == "")
     {
-        cout << "No stations available!\n";
+        cout << "The CS has not been created yet!\n";
     }
-
     else
     {
         cout << "Name: " << s.NameCS
             << "\tWorkshops: " << s.Workshops
             << "\tActive workshops: " << s.ActiveWorkshops
             << "\tEfficiency: " << s.Effectivness << endl;
-
     }
-
 }
 
 void edit(Cs& s)
 {
-    if (s.NameCS == "None")
+    if (s.NameCS == "")
     {
         cout << "No stations available!\n";
     }
@@ -199,14 +142,8 @@ void edit(Cs& s)
     else
     {
         cout << "Enter the number of active workshops: ";
-        pr_int(s.ActiveWorkshops);
+        s.ActiveWorkshops= pr_int("The number of active workshops cannot be greater than those available!\n", 0, s.ActiveWorkshops);
 
-        while (s.ActiveWorkshops > s.Workshops)
-        {
-            cout << "The number of active workshops cannot be greater than those available!\n";
-            cout << "Enter the number of active workshops (<=" << s.Workshops << ")";
-            pr_int(s.Workshops);
-        }
     }
     print_cs(s);
 }
@@ -277,7 +214,6 @@ void all_from_file(ifstream& fin, Pipe& p, Cs& s) {
     }
 }
 
-
 int main()
 {
     Pipe p1;
@@ -295,6 +231,7 @@ int main()
             << "7. Download to file" << endl
             << "8. Exit " << endl
             << endl << "Select command: ";
+
         cin >> menu;
         if (cin.fail() || menu < 1 || menu > 8)
         {
@@ -304,8 +241,8 @@ int main()
             continue;
         }
 
-
         switch (menu)
+
         {
         case 1: //add pipe 
         {
@@ -352,10 +289,10 @@ int main()
             fin.open("vivod.txt", ios::in);
             if (fin.is_open()) {
                 all_from_file(fin, p1, st1);
-                if (p1.NameP == "None") {
+                if (p1.NameP == "") {
                     cout << "There is no data about the pipe in the file\n";
                 }
-                if (st1.NameCS == "None") {
+                if (st1.NameCS == "") {
                     cout << "There is no data about the station in the file\n";
                 }
                 fin.close();
