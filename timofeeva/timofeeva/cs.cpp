@@ -2,17 +2,38 @@
 #include "cs.h"
 #include "utils.h"
 #include <string>
+#include <unordered_map>
+
 
 using namespace std;
 
-int CS::maxid = 1;
+int CS::maxid = 0;
 
 int CS::getid()
 {
     return id;
 }
 
+CS::CS()
+{
+    id = ++maxid;
+    namecs = "None";
+    workshops = 0;
+    act_workshops = 0;
+    efficiency = 0;
+}
 
+
+
+void CS::cs_save(ofstream& file)
+{
+    file << "Station" << endl;
+    file << id << endl;
+    file << namecs << endl;
+    file << workshops << endl;
+    file << act_workshops << endl;
+    file << efficiency << endl;
+}
 
 void CS::cs_create()
 {

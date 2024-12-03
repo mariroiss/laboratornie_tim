@@ -2,7 +2,8 @@
 #include <iostream>
 #include "pipe.h"
 #include "cs.h"
-
+#include <unordered_map>
+#include <string>
 
 
 using namespace std;
@@ -26,3 +27,4 @@ T GetCorrectNumber(T min, T max)
 
 
 void showall(unordered_map<int, PIPE> pipemap, unordered_map<int, CS> csmap);
+void save(unordered_map<int, PIPE>& pipes, unordered_map<int, CS>& stations);

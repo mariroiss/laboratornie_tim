@@ -5,14 +5,31 @@
 
 using namespace std;
 
-int PIPE::maxid = 1;
+int PIPE::maxid = 0;
 
 int PIPE::getid()
 {
 	return id;
 }
 
+PIPE::PIPE()
+{
+	id = ++maxid;
+	namepipe = "None";
+	diameter = 0;
+	length = 0;
+	repair = false;
+}
 
+void PIPE::pipe_save(ofstream& file)
+{
+	file << "Pipe" << endl;
+	file << id << endl;
+	file << namepipe << endl;
+	file << length << endl;
+	file << diameter << endl;
+	file << repair << endl;
+}
 
 void PIPE::pipe_create()
 {

@@ -1,6 +1,7 @@
 ﻿#include "pipe.h"
 #include "cs.h"
 #include "utils.h"
+#include "filters.h"
 #include <string>
 #include <iostream>
 #include <unordered_map>
@@ -20,8 +21,8 @@ int main()
             << "1. Change pipe" << endl
             << "2. Change cs" << endl
             << "3. Show all objects" << endl
-            << "4. Save" << endl
-            << "5. Download" << endl
+            << "4. Download" << endl
+            << "5. Save" << endl
             << "6. Exit " << endl;
 
         int option = GetCorrectNumber(1, 8);
@@ -40,6 +41,11 @@ int main()
         case 3:
         {
             showall(pipemap, csmap);
+            break;
+        }
+        case 5:
+        {
+            save(pipemap, csmap);
             break;
         }
         case 0:

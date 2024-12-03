@@ -1,25 +1,28 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <unordered_map>
 using namespace std;
 
 class PIPE
 {
 private:
-    string namepipe = "None";
-    double length = 0;
-    int diameter = 0;
-    bool repair = 0;
-    int id = 0;
-    static int maxid;
+    string namepipe;
+    double length;
+    int diameter;
+    bool repair;
+    int id ;
+
 
 public:
-
+    PIPE();
     int getid();
+    void pipe_save(ofstream& file);
     void pipe_create();
     void pipe_show();
-
+    static int maxid;
+    
 };
 
 template <typename T>

@@ -128,12 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cs.cpp" />
+    <ClCompile Include="filters.cpp" />
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="timofeeva.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cs.h" />
+    <ClInclude Include="filters.h" />
     <ClInclude Include="pipe.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

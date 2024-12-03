@@ -2,7 +2,8 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <istream>
+#include <unordered_map>
+#include <fstream>
 
 using namespace std;
 
@@ -13,14 +14,16 @@ private:
     int workshops;
     int act_workshops;
     int efficiency;
-    static int maxid;
     int id;
 
 public:
-
+    CS();
     int getid();
+    void cs_save(ofstream& file);
     void cs_create();
     void cs_show();
+    static int maxid;
+
 
 };
 
