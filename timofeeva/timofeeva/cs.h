@@ -10,7 +10,8 @@ using namespace std;
 class CS
 {
 private:
-    string namecs;
+    string name;
+    static int maxid;
     int workshops;
     int act_workshops;
     int efficiency;
@@ -18,12 +19,21 @@ private:
 
 public:
     CS();
-    int getid();
-    void cs_save(ofstream& file);
-    void cs_create();
-    void cs_show();
-    static int maxid;
+    int GetId();
+    void AddCS();
+    string GetNameCS();
+    int GetNumberofWorkshops();
+    int GetNumberofActiveWorkshops();
+    int GetEffeciency();
+    
+    void SetNumberofActiveWorkshops(int new_act_workshops);
 
+
+    void cs_show();
+ 
+
+    CS(ifstream& file);
+    void cs_save(ofstream& file);
 
 };
 
@@ -33,8 +43,7 @@ void showc(unordered_map<int, T>& map)
 {
     for (auto& pair : map)
     {
-        pair.second.showcs();
+        pair.second.cs_show();
     }
-};
+}
 
-void cs_menu(unordered_map<int, CS>& stations);

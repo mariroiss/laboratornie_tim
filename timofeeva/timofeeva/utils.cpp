@@ -6,7 +6,11 @@
 #include <fstream>
 #include <unordered_map>
 
-void showall(unordered_map<int, PIPE> pipemap, unordered_map<int, CS> csmap)
+using namespace std;
+
+
+
+void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap)
 {
 	if (pipemap.empty())
 	{
@@ -17,16 +21,16 @@ void showall(unordered_map<int, PIPE> pipemap, unordered_map<int, CS> csmap)
 		for (auto& pair : pipemap)
 		{
 			cout << "Pipes" << endl;
-			pair.second.pipe_show();
+			pair.second.ShowPipe();
 		}
 	}
-	if (csmap.empty())
+	if (cssmap.empty())
 	{
 		cout << "Sorry, no stations" << endl;
 	}
 	else
 	{
-		for (auto& pair : csmap)
+		for (auto& pair : cssmap)
 		{
 			cout << "Stations" << endl;
 			pair.second.cs_show();
@@ -34,7 +38,7 @@ void showall(unordered_map<int, PIPE> pipemap, unordered_map<int, CS> csmap)
 	}
 }
 
-void save(unordered_map<int, PIPE>& pipes, unordered_map<int, CS>& stations)
+void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap)
 {
 	cout << "Enter a file name" << endl;
 	string filename;
@@ -42,10 +46,10 @@ void save(unordered_map<int, PIPE>& pipes, unordered_map<int, CS>& stations)
 	ofstream file(filename);
 	if (file.is_open())
 	{
-		for (auto& pair : pipes) {
+		for (auto& pair : pipemap) {
 			pair.second.pipe_save(file);
 		}
-		for (auto& pair : stations) {
+		for (auto& pair : cssmap) {
 			pair.second.cs_save(file);
 		}
 		file.close();

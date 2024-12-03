@@ -5,9 +5,10 @@
 #include <unordered_map>
 using namespace std;
 
-class PIPE
+class Pipe
 {
 private:
+    static int maxid;
     string namepipe;
     double length;
     int diameter;
@@ -15,14 +16,22 @@ private:
     int id ;
 
 
+
 public:
-    PIPE();
-    int getid();
-    void pipe_save(ofstream& file);
-    void pipe_create();
-    void pipe_show();
-    static int maxid;
+    Pipe();
+    int GetId();
+    string GetNamePipe();
+    bool GetRepair();
+    void AddPipe();
+    void ShowPipe();
+
+    /*Pipe(ifstream& file);
+    void SavePipe(ofstream& file);*/
+    string name;
+    void ChangeRepair();
     
+    void pipe_save(ofstream& file);
+    Pipe(ifstream& file);
 };
 
 template <typename T>
@@ -30,8 +39,8 @@ void showp(unordered_map<int, T>& map)
 {
     for (auto& pair : map)
     {
-        pair.second.showpipe();
+        pair.second.ShowPipe();
     }
 }
-void pipe_menu(unordered_map<int, PIPE>& pipes);
+
 

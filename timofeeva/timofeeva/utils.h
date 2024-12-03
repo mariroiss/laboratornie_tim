@@ -2,8 +2,10 @@
 #include <iostream>
 #include "pipe.h"
 #include "cs.h"
-#include <unordered_map>
+#include <unordered_map>   
+#include <unordered_set>
 #include <string>
+
 
 
 using namespace std;
@@ -18,13 +20,13 @@ T GetCorrectNumber(T min, T max)
     {
         cin.clear();
         cin.ignore(10000, '\n');
-        cout << "Type number from " << min << " to " << max << ": ";
+        cout << "\nEnter a right number from " << min << " to " << max << "\n ";
     }
-    cerr << value << endl;
+    //cerr << value << endl;
     return value;
 }
 
+void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap);
+void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap);
 
 
-void showall(unordered_map<int, PIPE> pipemap, unordered_map<int, CS> csmap);
-void save(unordered_map<int, PIPE>& pipes, unordered_map<int, CS>& stations);

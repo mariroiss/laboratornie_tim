@@ -1,44 +1,73 @@
-
 #include "cs.h"
 #include "utils.h"
 #include <string>
-#include <unordered_map>
+#include <unordered_map>;
 
 
 using namespace std;
 
 int CS::maxid = 0;
 
-int CS::getid()
+int CS::GetId()
 {
     return id;
+}
+
+string CS::GetNameCS()
+{
+    return name;
+}
+
+int CS::GetNumberofWorkshops() {
+    return workshops;
+}
+
+int CS::GetNumberofActiveWorkshops() {
+    return act_workshops;
+}
+
+int CS::GetEffeciency() {
+    return efficiency;
+}
+
+void CS::SetNumberofActiveWorkshops(int new_act_workshops) {
+    act_workshops = new_act_workshops;
 }
 
 CS::CS()
 {
     id = ++maxid;
-    namecs = "None";
+    name = "";
     workshops = 0;
     act_workshops = 0;
     efficiency = 0;
 }
 
 
-
 void CS::cs_save(ofstream& file)
 {
     file << "Station" << endl;
     file << id << endl;
-    file << namecs << endl;
+    file << name << endl;
     file << workshops << endl;
     file << act_workshops << endl;
     file << efficiency << endl;
 }
 
-void CS::cs_create()
+CS::CS(ifstream& file)
+{
+    file >> this->id;
+    file.ignore(10000, '\n');
+    getline(file >> ws, this->name);
+    file >> this->workshops;
+    file >> this->act_workshops;
+    file >> this->efficiency;
+}
+
+void CS::AddCS()
 {
     cout << "Name cs: " << endl;
-    getline(cin >> ws, namecs);
+    getline(cin >> ws, name);
     cout << "Number of workshops: " << endl;
     workshops = GetCorrectNumber(1, 10000);
     cout << "Number of active workshops(must be < total workshops) " << endl;
@@ -46,9 +75,41 @@ void CS::cs_create()
     cout << "Efficiency status (1...100)% : " << endl;
     efficiency = GetCorrectNumber(0, 100);
     id = maxid;
-    maxid++;
 
 }
+
+void EditCSbyId(unordered_map<int, CS>& cssmap) {
+    int cs_id;
+    int new_act;
+    if (cssmap.empty()) {
+        cout << "No CSS" << endl;
+    }
+    else {
+        cout << "Enter id of cs to edit " << endl;
+        cs_id = GetCorrectNumber(0, numeric_limits<int>::max());
+
+        if (cssmap.count(cs_id) == 1) {
+            while (1) {
+                cout << "Enter new number of active workshops (0 to exit): ";
+                new_act = GetCorrectNumber(0, numeric_limits<int>::max());
+                if (new_act == 0) {
+                    break;
+                }
+                if (new_act >= 0 && new_act <= cssmap[cs_id].GetNumberofWorkshops()) {
+                    cssmap[cs_id].SetNumberofActiveWorkshops(new_act);
+                    cout << "Number of active workshops updated to: " << new_act << endl;
+                }
+                else {
+                    cout << "Active workshops must be between 0 and " << cssmap[cs_id].GetNumberofWorkshops() << endl;
+                }
+            }
+        }
+        else {
+            cout << "No CS with this ID." << endl;
+        }
+    }
+}
+
 
 void CS::cs_show()
 {
@@ -61,13 +122,13 @@ void CS::cs_show()
     else
     {
         cout << "ID " << id << endl;
-        cout << "Name cs: " << namecs << endl;
+        cout << "Name cs: " << name << endl;
         cout << " Workshops: " << workshops << endl;
         cout << " Active workshops: " << act_workshops << endl;
         cout << " Efficiency: " << efficiency << "/100" << endl;
     }
 }
-
+/*
 void cs_menu(unordered_map<int, CS>& stations)
 {
     while (1) {
@@ -82,7 +143,7 @@ void cs_menu(unordered_map<int, CS>& stations)
         {
             CS p;
             p.cs_create(); //создала для объекта р кс
-            stations.emplace(p.getid(), p); //добавила элемент в контейнер
+            stations.emplace(p.GetId(), p); //добавила элемент в контейнер
             break;
         };
         case 2:
@@ -98,7 +159,7 @@ void cs_menu(unordered_map<int, CS>& stations)
     }
 }
 
-
+*/
 
 
 /* ifstream& operator >> (ifstream& fin, css& s)
