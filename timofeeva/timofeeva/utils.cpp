@@ -59,3 +59,38 @@ void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap)
 		cout << "Error" << endl;
 	}
 }
+
+void Download(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& csmap)
+{
+	cout << "Enter a file name" << endl;
+	string filename;
+	getline(cin >> ws, filename);
+	ifstream file(filename);
+	int countpipe = 0;
+	int countcs = 0;
+	if (file.is_open())
+	{
+		pipemap.clear();
+		csmap.clear();
+		string line;
+		while (file >> line)
+		{
+			if (line == "Pipe") {
+				load(file, pipemap);
+				++countpipe;
+			}
+			else if (line == "Cs") {
+				load(file, csmap);
+				++countcs;
+			}
+		}
+		file.close();
+		cout << "The data has been downloaded" << endl;
+	}
+	else
+	{
+		cout << "Error opening file" << endl;
+	}
+	Pipe::maxid = countpipe;
+	CS::maxid = countcs;
+}

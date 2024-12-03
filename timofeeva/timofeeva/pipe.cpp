@@ -49,7 +49,7 @@ Pipe::Pipe(ifstream& file)
 {
 	file >> this->id;
 	file.ignore(10000, '\n');
-	getline(file >> ws, this->namepipe);
+	getline(file >> ws, this->name);
 	file >> this->length;
 	file >> this->diameter;
 	file >> this->repair;
@@ -83,36 +83,3 @@ void Pipe::ShowPipe()
 		cout << " Repair: " << repair << endl;
 	}
 }
-/*void pipe_menu(unordered_map<int, PIPE>& pipes)
-{
-	while (1) {
-		cout << "1. Add pipe " << endl;
-		cout << "2. Edit pipe " << endl;
-		cout << "3. Delete pipe " << endl;
-		cout << "0. Return to menu" << endl;
-		int option = GetCorrectNumber(0, 8);
-		switch (option)
-		{
-		case 1:
-		{
-			PIPE p;
-			p.pipe_create();
-			pipes.emplace(p.getid(), p);
-			break;
-		};
-		case 2:
-		{
-			break;
-		};
-		case 3:
-		{
-			break;
-		};
-		case 0:
-		{
-			return;
-		}
-		}
-	}
-}
-*/

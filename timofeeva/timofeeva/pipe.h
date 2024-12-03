@@ -8,7 +8,7 @@ using namespace std;
 class Pipe
 {
 private:
-    static int maxid;
+    
     string namepipe;
     double length;
     int diameter;
@@ -21,6 +21,7 @@ public:
     Pipe();
     int GetId();
     string GetNamePipe();
+    static int maxid;
     bool GetRepair();
     void AddPipe();
     void ShowPipe();

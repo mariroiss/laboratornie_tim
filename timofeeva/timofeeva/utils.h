@@ -26,7 +26,15 @@ T GetCorrectNumber(T min, T max)
     return value;
 }
 
+template<typename T>
+void load(ifstream& file, unordered_map<int, T>& map)
+{
+    T object(file);
+    map.emplace(object.GetId(), object);
+}
+
 void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap);
 void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap);
+void Download(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& csmap);
 
 

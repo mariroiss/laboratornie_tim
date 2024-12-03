@@ -11,7 +11,7 @@ class CS
 {
 private:
     string name;
-    static int maxid;
+    
     int workshops;
     int act_workshops;
     int efficiency;
@@ -25,10 +25,8 @@ public:
     int GetNumberofWorkshops();
     int GetNumberofActiveWorkshops();
     int GetEffeciency();
-    
+    static int maxid;
     void SetNumberofActiveWorkshops(int new_act_workshops);
-
-
     void cs_show();
  
 
