@@ -7,35 +7,47 @@
  
 using namespace std;
 
-int Pipe::maxid = 0;
+int Pipe::current_pipeid = 0;
+
+int Pipe::Get_currentid() {
+	return Pipe::current_pipeid;
+}
 
 int Pipe::GetId()
 {
-	return id;
+	return this->id;
 }
 
 string Pipe::GetNamePipe()
 {
-	return name;
+	return this->name;
 }
 bool Pipe::GetRepair()
 {
-	return repair;
+	return this->repair;
 }
 void Pipe::ChangeRepair() {
 	this->repair = !this->repair;
 }
 
+void Pipe::Clear_currentid() {
+	Pipe::current_pipeid = 1;
+}
+
+void Pipe::set_currentid(const unordered_map<int, Pipe>& data) {
+	Pipe::current_pipeid = Get_maxid(data);
+}
+
 Pipe::Pipe()
 {
-	id = ++maxid;
+	id = 0;
 	name = "None";
 	diameter = 0;
 	length = 0;
 	repair = false;
 }
 
-void Pipe::pipe_save(ofstream& file)
+void Pipe::pipe_save(ofstream& file) const
 {
 	file << "Pipe" << endl;
 	file << id << endl;
@@ -65,7 +77,7 @@ void Pipe::AddPipe()
 	diameter = GetCorrectNumber(1, 10000);
 	cout << "Enter the repair status(1/0): " << endl;
 	repair = GetCorrectNumber(0, 1);
-	id = maxid;
+	id = ++current_pipeid;
 }
 
 void Pipe::ShowPipe()

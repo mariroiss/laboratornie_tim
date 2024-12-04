@@ -42,8 +42,17 @@ void PrintSelected(const unordered_map<int, T>& obj, const unordered_set<int>& s
     }
 }
 
+template<typename T>
+int Get_maxid(const std::unordered_map<int, T>& objs) {
+    int id = -1;
+    for (auto& [k, v] : objs) {
+        if (k > id) id = k;
+    }
+    return id;
+}
+
 void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap);
 void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap);
-void Download(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& csmap);
+void Download(std::unordered_map<int, Pipe>& pipesmap, std::unordered_map<int, CS>& cs, std::unordered_set<int>& selected_pipe, std::unordered_set<int>& selected_cs);
 
 

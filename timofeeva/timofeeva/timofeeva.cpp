@@ -59,7 +59,7 @@ int main() {
         
         case 5:
         {
-            Download(pipesmap, cssmap);
+            Download(pipesmap, cssmap, selected_pipes, selected_cs);
             break;
         };
         case 6:
@@ -69,5 +69,5 @@ int main() {
         }
         }
     }
-    return;
+    return 0;
 }

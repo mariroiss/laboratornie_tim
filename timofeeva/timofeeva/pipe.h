@@ -14,21 +14,23 @@ private:
     int diameter;
     bool repair;
     int id ;
-
+    static int current_pipeid;
 
 
 public:
     Pipe();
     int GetId();
     string GetNamePipe();
-    static int maxid;
+    static int Get_currentid();
+    void Clear_currentid();
+    static void set_currentid(const unordered_map<int, Pipe>& data);
     bool GetRepair();
     void AddPipe();
     void ShowPipe();
     string name;
     void ChangeRepair();
     
-    void pipe_save(ofstream& file);
+    void pipe_save(ofstream& file) const;
     Pipe(ifstream& file);
 };
 

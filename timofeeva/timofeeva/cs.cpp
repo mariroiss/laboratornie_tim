@@ -6,38 +6,49 @@
 
 using namespace std;
 
-int CS::maxid = 0;
+int CS::current_csid = 0;
+
+int CS::Get_currentid() {
+    return CS::current_csid;
+}
 
 int CS::GetId()
 {
-    return id;
+    return this->id;
 }
 
 string CS::GetNameCS()
 {
-    return name;
+    return this->name;
 }
 
 int CS::GetNumberofWorkshops() {
-    return workshops;
+    return this->workshops;
 }
 
 int CS::GetNumberofActiveWorkshops() {
-    return act_workshops;
+    return this->act_workshops;
 }
 
 int CS::GetEffeciency() {
-    return efficiency;
+    return this->efficiency;
 }
 
 void CS::SetNumberofActiveWorkshops(int new_act_workshops) {
     act_workshops = new_act_workshops;
 }
 
+void CS::Clear_currentid() {
+    CS::current_csid = 1;
+}
+
+void CS::set_currentid(const unordered_map<int, CS>& data) {
+    CS::current_csid = Get_maxid(data);
+}
 
 CS::CS()
 {
-    id = ++maxid;
+    id = 0;
     name = "None";
     workshops = 0;
     act_workshops = 0;
@@ -75,7 +86,7 @@ void CS::AddCS()
     act_workshops = GetCorrectNumber(1, workshops);
     cout << "Efficiency status (1...100)% : " << endl;
     efficiency = GetCorrectNumber(0, 100);
-    id = maxid;
+    id = ++current_csid;
 
 }
 
