@@ -25,9 +25,6 @@ public:
     bool GetRepair();
     void AddPipe();
     void ShowPipe();
-
-    /*Pipe(ifstream& file);
-    void SavePipe(ofstream& file);*/
     string name;
     void ChangeRepair();
     

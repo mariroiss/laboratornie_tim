@@ -33,6 +33,15 @@ void load(ifstream& file, unordered_map<int, T>& map)
     map.emplace(object.GetId(), object);
 }
 
+template<typename T>
+void PrintSelected(const unordered_map<int, T>& obj, const unordered_set<int>& selected_obj) {
+    if (selected_obj.size() == 0) cout << "No selected!" << endl;
+
+    for (const int& id : selected_obj) {
+        cout << obj.find(id)->second << endl;
+    }
+}
+
 void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap);
 void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap);
 void Download(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& csmap);

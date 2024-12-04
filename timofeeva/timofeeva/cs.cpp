@@ -34,6 +34,7 @@ void CS::SetNumberofActiveWorkshops(int new_act_workshops) {
     act_workshops = new_act_workshops;
 }
 
+
 CS::CS()
 {
     id = ++maxid;
@@ -77,39 +78,6 @@ void CS::AddCS()
     id = maxid;
 
 }
-
-void EditCSbyId(unordered_map<int, CS>& cssmap) {
-    int cs_id;
-    int new_act;
-    if (cssmap.empty()) {
-        cout << "No CSS" << endl;
-    }
-    else {
-        cout << "Enter id of cs to edit " << endl;
-        cs_id = GetCorrectNumber(0, numeric_limits<int>::max());
-
-        if (cssmap.count(cs_id) == 1) {
-            while (1) {
-                cout << "Enter new number of active workshops (0 to exit): ";
-                new_act = GetCorrectNumber(0, numeric_limits<int>::max());
-                if (new_act == 0) {
-                    break;
-                }
-                if (new_act >= 0 && new_act <= cssmap[cs_id].GetNumberofWorkshops()) {
-                    cssmap[cs_id].SetNumberofActiveWorkshops(new_act);
-                    cout << "Number of active workshops updated to: " << new_act << endl;
-                }
-                else {
-                    cout << "Active workshops must be between 0 and " << cssmap[cs_id].GetNumberofWorkshops() << endl;
-                }
-            }
-        }
-        else {
-            cout << "No CS with this ID." << endl;
-        }
-    }
-}
-
 
 void CS::cs_show()
 {

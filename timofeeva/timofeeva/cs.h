@@ -28,10 +28,9 @@ public:
     static int maxid;
     void SetNumberofActiveWorkshops(int new_act_workshops);
     void cs_show();
- 
-
     CS(ifstream& file);
     void cs_save(ofstream& file);
+
 
 };
 

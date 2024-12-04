@@ -25,7 +25,10 @@ void PrintMainMenu()
 
 int main() {
     unordered_map<int, Pipe> pipesmap;
+    unordered_set<int> selected_pipes;
+
     unordered_map<int, CS> cssmap; 
+    unordered_set<int> selected_cs;
 
     int command;
     while (true) {
@@ -34,13 +37,13 @@ int main() {
         switch (command) {
         case 1:
         {
-            PipesMenu(pipesmap);
+            PipesMenu(pipesmap, selected_pipes);
             break;
         }
    
         case 2:
         {
-            CSMenu(cssmap);
+            CSMenu(cssmap, selected_cs);
             break;
         }
         case 3:
@@ -64,10 +67,7 @@ int main() {
             return 0;
             break;
         }
-        /*default:
-            cout << "You choose the number, that not exist!\n";
-            break;*/
         }
     }
-    return 0;
+    return;
 }
