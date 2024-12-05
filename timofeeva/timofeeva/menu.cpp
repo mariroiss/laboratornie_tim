@@ -56,7 +56,7 @@ void PrintSelectedPipesMenu() {
     cout << "Choose command" << endl;
     cout << "0. Exit" << endl;
     cout << "1. Filter" << endl;
-    cout << "2. See selected pipes" << endl;//
+    cout << "2. See selected pipes" << endl;
     cout << "3. Edit selected pipes" << endl;
     cout << "4. Choose ids from selected" << endl;
     cout << "5. Remove from selected" << endl;
@@ -80,7 +80,7 @@ void SelectedPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& s
         }
         case 2:
         {
-            //PrintSelected(pipesmap, selected_pipes);
+            PrintSelected(pipesmap, selected_pipes);
             break;
         }
         case 3:
@@ -175,7 +175,7 @@ void EditPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selec
         }
         case 2:
         {
-            //delete_selectedObj(pipesmap, selected_pipes);
+            delete_selectedObj(pipesmap, selected_pipes);
             break;
         }
         }
@@ -253,7 +253,7 @@ void SelectedCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected
         }
         case 2:
         {
-            //PrintSelected(cssmap, selected_cs);
+            PrintSelected(cssmap, selected_cs);
             break;
         }
         case 3:
@@ -343,12 +343,12 @@ void EditCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs)
         }
         case 1:
         {
-            EditCS(cssmap);
+            EditCS(cssmap, selected_cs);
             break;
         }
         case 2:
         {
-            //delete_selectedObj(c_ss, selected_css);
+            delete_selectedObj(cssmap, selected_cs);
             break;
         }
         }

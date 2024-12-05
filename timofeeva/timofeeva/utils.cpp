@@ -21,7 +21,7 @@ void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap)
 		for (auto& pair : pipemap)
 		{
 			cout << "Pipes" << endl;
-			pair.second.ShowPipe();
+			pair.second.Show();
 		}
 	}
 	if (cssmap.empty())
@@ -33,7 +33,7 @@ void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap)
 		for (auto& pair : cssmap)
 		{
 			cout << "Stations" << endl;
-			pair.second.cs_show();
+			pair.second.Show();
 		}
 	}
 }
@@ -108,36 +108,19 @@ void change_selectedPipes_workStatus(unordered_map<int, Pipe>& pipes, const unor
 }
 
 
-void EditCS(unordered_map<int, CS>& cssmap) {
-	int cs_id;
+void EditCS(unordered_map<int, CS>& cssmap, const unordered_set<int>& selected_cs) {
+	int choice;
 
 	if (cssmap.empty()) {
 		cout << "No CSS" << std::endl;
 		return;
 	}
-	while (true) {
-		cout << "Enter the ID of css (0 to exit): ";
-		cs_id = GetCorrectNumber(0, numeric_limits<int>::max());
-		if (cs_id == 0) break;
-
-		if (cssmap.count(cs_id) == 1) {
-			int numWorkshops = cssmap[cs_id].GetNumberofWorkshops();
-			int new_act;
-			while (true) {
-				cout << "Enter new number of active workshops (0 to exit, 0 to " << numWorkshops << "): ";
-				new_act = GetCorrectNumber(0, numWorkshops);
-				if (new_act >= 0 && new_act <= numWorkshops) {
-					cssmap[cs_id].SetNumberofActiveWorkshops(new_act);
-					cout << "Number of active workshops updated to: " << new_act << endl;
-					break;
-				}
-				else {
-					cout << "Enter the number of active workshops from 0 to " << numWorkshops << endl;
-				}
-			}
-		}
-		else {
-			cout << "No CS with this ID" << std::endl;
-		}
+	cout << "input choice 0/1: ";
+	choice = GetCorrectNumber(0, 1);
+	
+	for (const auto& id: selected_cs) {
+		cssmap.at(id).edit_workshop_status(choice);
 	}
 }
+
+

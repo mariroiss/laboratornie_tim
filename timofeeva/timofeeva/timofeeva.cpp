@@ -1,16 +1,18 @@
 ﻿#include "pipe.h"
 #include "cs.h"
 #include "utils.h"
-//#include "filters.h"
+#include "filters.h"
 #include <string>
 #include <iostream>
 #include <unordered_map>
 #include "menu.h"
-
+#include "logging.h"
+#include <format>
+#include <chrono>
 
 
 using namespace std;
-
+using namespace chrono;
 
 void PrintMainMenu()
 {
@@ -24,6 +26,12 @@ void PrintMainMenu()
 }
 
 int main() {
+    redirect_output_wrapper cerr_out(cerr);
+    //string time = format("{:%d_%m_%Y %H_%M_%OS}", system_clock::now);
+    ofstream logfile("log.txt");
+    if (logfile)
+        cerr_out.redirect(logfile);
+
     unordered_map<int, Pipe> pipesmap;
     unordered_set<int> selected_pipes;
 

@@ -79,7 +79,7 @@ CS::CS(ifstream& file)
 void CS::AddCS()
 {
     cout << "Name cs: " << endl;
-    getline(cin >> ws, name);
+    INPUT_LINE(cin, this->name);
     cout << "Number of workshops: " << endl;
     workshops = GetCorrectNumber(1, 10000);
     cout << "Number of active workshops(must be < total workshops) " << endl;
@@ -90,7 +90,7 @@ void CS::AddCS()
 
 }
 
-void CS::cs_show()
+void CS::Show() const
 {
 
     if (workshops == 0)
@@ -108,3 +108,16 @@ void CS::cs_show()
     }
 }
 
+void CS::edit_workshop_status(int choice) {
+    if (choice == 1) {
+        if (this->act_workshops > 0) {
+            --this->act_workshops;
+        };
+    }
+    else {
+        if (this->act_workshops < this->workshops) {
+            ++this->act_workshops;
+        };
+    };
+
+}

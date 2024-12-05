@@ -26,7 +26,7 @@ public:
     static void set_currentid(const unordered_map<int, Pipe>& data);
     bool GetRepair() const;
     void AddPipe();
-    void ShowPipe();
+    void Show() const;
     void ChangeRepair();
     
     void pipe_save(ofstream& file) const;

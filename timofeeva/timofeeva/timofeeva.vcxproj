@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="cs.cpp" />
     <ClCompile Include="filters.cpp" />
+    <ClCompile Include="logging.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="timofeeva.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="cs.h" />
     <ClInclude Include="filters.h" />
+    <ClInclude Include="logging.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="pipe.h" />
     <ClInclude Include="utils.h" />

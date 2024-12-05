@@ -70,7 +70,7 @@ Pipe::Pipe(ifstream& file)
 void Pipe::AddPipe()
 {
 	cout << "Name pipe name: " << endl;
-	getline(cin >> ws, name);
+	INPUT_LINE(cin, this->name);
 	cout << "Enter the pipe length: " << endl;
 	length = GetCorrectNumber(1, 10000);
 	cout << "Enter the pipe diameter : " << endl;
@@ -80,7 +80,7 @@ void Pipe::AddPipe()
 	id = ++current_pipeid;
 }
 
-void Pipe::ShowPipe()
+void Pipe::Show() const
 {
 	if (diameter == 0)
 	{

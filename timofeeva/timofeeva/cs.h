@@ -30,9 +30,10 @@ public:
     int GetNumberofActiveWorkshops() const;
     int GetEffeciency();
     void SetNumberofActiveWorkshops(int new_act_workshops);
-    void cs_show();
+    void Show() const;
     CS(ifstream& file);
     void cs_save(ofstream& file);
+    void edit_workshop_status(int choice);
 
 
 };

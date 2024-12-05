@@ -18,34 +18,13 @@ void FindByIsWorking(const unordered_map<int, Pipe>& pipes, unordered_set<int>& 
 bool CheckByProcent(const CS& cs, const double percent_threshold);
 void FindByUnusedWorkshops(const std::unordered_map<int, CS>& list_of_CSs, std::unordered_set<int>& selected_CSs);
 
-/*
-template<typename T>
-unordered_set<int> SelectById(const T& map)
-{
-	unordered_set<int> res;
-	int id;
-	int num;
-	num = map.size();
-	while (true) {
-		cout << "Enter the ID (0 for exit): ";
-		id = GetCorrectNumber(0, num);
-		if (id == 0)
-			break;
-		if (map.contains(id))
-		{
-			res.emplace(id);
-		}
-	}
-	return res;
-}  */
-
 template<typename T>
 std::unordered_set<int> SelectById(const T& set) {
 	std::unordered_set<int> subset;
 	int id;
 
 	while (true) {
-		std::cout << "input id(0 for exit): ";
+		std::cout << "Enter the ID  (0 for exit): ";
 		id = GetCorrectNumber<int>(0, 1000);
 
 		if (id == 0) return subset;
@@ -69,16 +48,7 @@ void FindByFilter(const std::unordered_map<int, T>& obj, std::unordered_set<int>
 	}
 }
 
-template<typename T>
-void FindByName(const std::unordered_map<int, T>& set, std::unordered_set<int>& subset) {
-	std::string name;
-	std::cout << "Enter the name to search for: ";
-	std::cin.ignore();
-	std::getline(std::cin, name);
 
-	FindByFilter(set, subset, CheckByName, name);
-}
-/*
 template<typename T>
 void FindByName(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj) {
 	cout << "input name: ";
@@ -87,14 +57,14 @@ void FindByName(const std::unordered_map<int, T>& obj, std::unordered_set<int>& 
 
 	FindByFilter(obj, selected_obj, CheckByName, name);
 }
-*/
+
 template<typename T>
 void SelectAll(const unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {
 	for (const auto& pair : obj) {
 		selected_obj.emplace(pair.first);
 	}
 }
-/*
+
 template<typename T>
 void delete_selectedObj(unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {
 	for (auto it = selected_obj.begin(); it != selected_obj.end();) {
@@ -102,5 +72,5 @@ void delete_selectedObj(unordered_map<int, T>& obj, unordered_set<int>& selected
 		it = selected_obj.erase(it);
 	}
 	cout << " objects was erased!" << std::endl;
-}*/
+}
 
