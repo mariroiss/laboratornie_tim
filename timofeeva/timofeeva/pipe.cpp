@@ -18,11 +18,11 @@ int Pipe::GetId()
 	return this->id;
 }
 
-string Pipe::GetNamePipe()
+string Pipe::GetName() const
 {
-	return this->name;
+	return name;
 }
-bool Pipe::GetRepair()
+bool Pipe::GetRepair() const
 {
 	return this->repair;
 }

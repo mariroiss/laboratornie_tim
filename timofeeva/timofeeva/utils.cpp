@@ -38,41 +38,27 @@ void ShowAll(unordered_map<int, Pipe> pipemap, unordered_map<int, CS> cssmap)
 	}
 }
 
-/*void SaveAll(unordered_map<int, Pipe>& pipesmap, unordered_map<int, CS>& cssmap) {
+void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap)
+{
 	cout << "Enter a file name" << endl;
 	string filename;
 	getline(cin >> ws, filename);
 	ofstream file(filename);
-
-	if (file.is_open()) {
-
-		if (pipesmap.empty()) {
-			cout << "No pipes" << endl;
+	if (file.is_open())
+	{
+		for (auto& pair : pipemap) {
+			pair.second.pipe_save(file);
 		}
-		else {
-			for (auto& pair : pipesmap) {
-				pair.second.pipe_save(file); //?
-			}
+		for (auto& pair : cssmap) {
+			pair.second.cs_save(file);
 		}
-
-		if (cssmap.empty()) {
-			cout << "No compressor stations" << endl;
-		}
-		else {
-			for (auto& cs : cssmap) {
-				cs.second.cs_save(file);
-			}
-		}
-
 		file.close();
-
-		cout << " Objects was saved!" << endl;
+		cout << "The data has been saved" << endl;
 	}
 	else {
-		cout << "Error opening file!" << endl;
+		cout << "Error" << endl;
 	}
-
-}*/
+}
 
 
 void Download(std::unordered_map<int, Pipe>& pipesmap, unordered_map<int, CS>& cs, std::unordered_set<int>& selected_pipe, std::unordered_set<int>& selected_cs) {
@@ -113,64 +99,45 @@ void Download(std::unordered_map<int, Pipe>& pipesmap, unordered_map<int, CS>& c
 
 	cout << " objects was added!" << endl;
 }
-void SaveAll(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap)
-{
-	cout << "Enter a file name" << endl;
-	string filename;
-	getline(cin >> ws, filename);
-	ofstream file(filename);
-	if (file.is_open())
-	{
-		for (auto& pair : pipemap) {
-			pair.second.pipe_save(file);
-		}
-		for (auto& pair : cssmap) {
-			pair.second.cs_save(file);
-		}
-		file.close();
-		cout << "The data has been saved" << endl;
+
+void change_selectedPipes_workStatus(unordered_map<int, Pipe>& pipes, const unordered_set<int>& selected_pipes) {
+	for (const int& id : selected_pipes) {
+		pipes.find(id)->second.ChangeRepair();
 	}
-	else {
-		cout << "Error" << endl;
+	cout<< " Pipes were changed!" << endl;
+}
+
+
+void EditCS(unordered_map<int, CS>& cssmap) {
+	int cs_id;
+
+	if (cssmap.empty()) {
+		cout << "No CSS" << std::endl;
+		return;
+	}
+	while (true) {
+		cout << "Enter the ID of css (0 to exit): ";
+		cs_id = GetCorrectNumber(0, numeric_limits<int>::max());
+		if (cs_id == 0) break;
+
+		if (cssmap.count(cs_id) == 1) {
+			int numWorkshops = cssmap[cs_id].GetNumberofWorkshops();
+			int new_act;
+			while (true) {
+				cout << "Enter new number of active workshops (0 to exit, 0 to " << numWorkshops << "): ";
+				new_act = GetCorrectNumber(0, numWorkshops);
+				if (new_act >= 0 && new_act <= numWorkshops) {
+					cssmap[cs_id].SetNumberofActiveWorkshops(new_act);
+					cout << "Number of active workshops updated to: " << new_act << endl;
+					break;
+				}
+				else {
+					cout << "Enter the number of active workshops from 0 to " << numWorkshops << endl;
+				}
+			}
+		}
+		else {
+			cout << "No CS with this ID" << std::endl;
+		}
 	}
 }
-/*
-void Download(unordered_map<int, Pipe>& pipemap, unordered_map<int, CS>& cssmap, unordered_set<int>& selected_pipe, unordered_set<int>& selected_cs)
-{
-	cout << "Enter a file name" << endl;
-	string filename;
-	getline(cin >> ws, filename);
-	ifstream file(filename);
-	if (file.is_open()) {
-		pipemap.clear();
-		selected_pipe.clear();
-		cssmap.clear();
-		selected_cs.clear();
-
-		string line;
-
-		while (getline(file, line)) {
-			if (line.find("Pipe") == 0) {
-				Pipe new_pipe;
-				file >> new_pipe;
-				cout << new_pipe;
-				pipemap.emplace(new_pipe.GetId(), new_pipe);
-				cout << "Pipe added!" << endl;
-			}
-			else if (line.find("CS") == 0) {
-				CS new_cs;
-				file >> new_cs;
-				cout << new_cs;
-				cssmap.emplace(new_cs.GetId(), new_cs);
-				cout << "Cs added!" << endl;
-			}
-		}
-
-		file.close();
-	}
-	else {
-		cout << "Error opening file! The file '" << filename << "' could not be opened." << endl;
-	}
-
-
-}*/

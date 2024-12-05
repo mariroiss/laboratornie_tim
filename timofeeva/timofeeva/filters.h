@@ -4,36 +4,21 @@
 #include <unordered_set>
 #include <string>
 #include "pipe.h"
+#include "cs.h"
+#include <sstream>
+
 
 using namespace std;
-template<typename T, typename P>
-using Filter = bool(*)(T& val, P param);
-
-template<typename T>
-bool checkByName(T& val, string name)
-{
-	size_t pos = val.getname().find(name);
-	if (pos != string::npos) return true;
-	else return false;
-}
-
-//bool checkbyrepair(Pipe& p, bool status);
-//bool checkByWSInWork(CS& cs, double percent);
-
-template<typename T, typename P>
-unordered_set<int> findfilter(unordered_map<int, T>& map, Filter<T, P> f, P param)
-{
-	unordered_set<int> res;
-	int i = 0;
-	for (auto& [id, val] : map)
-	{
-		if (f(val, param))
-			res.emplace(id);
-	}
-	return res;
-}
+template<typename T, typename K>
+using Filter = bool(*)(const T& obj, const K param);
 
 
+bool CheckByIsWorking(const Pipe& pipe, const bool repair);
+void FindByIsWorking(const unordered_map<int, Pipe>& pipes, unordered_set<int>& selected_pipes);
+bool CheckByProcent(const CS& cs, const double percent_threshold);
+void FindByUnusedWorkshops(const std::unordered_map<int, CS>& list_of_CSs, std::unordered_set<int>& selected_CSs);
+
+/*
 template<typename T>
 unordered_set<int> SelectById(const T& map)
 {
@@ -42,7 +27,7 @@ unordered_set<int> SelectById(const T& map)
 	int num;
 	num = map.size();
 	while (true) {
-		cout << "Enter the ID of pipes (0 for exit): ";
+		cout << "Enter the ID (0 for exit): ";
 		id = GetCorrectNumber(0, num);
 		if (id == 0)
 			break;
@@ -52,61 +37,70 @@ unordered_set<int> SelectById(const T& map)
 		}
 	}
 	return res;
-}  
+}  */
 
 template<typename T>
-void EditPipebyId(unordered_map<int, T>& map)
-{
-	unordered_set<int> res;
-	res = SelectById(map);
-	if (res.size() != 0)
-	{
-		for (const int& id : res) {
-			map.find(id)->second.ChangeRepair();
-		}
-		cout << "Repair status has been changed" << endl;
-	}
-	else
-	{
-		cout << "No pipes" << endl;
-	}
-}
-
-
-
-template<typename T>
-void EditCSbyId(unordered_map<int, T>& cssmap) {
-	int cs_id;
-
-	if (cssmap.empty()) {
-		cout << "No CSS" << std::endl;
-		return;
-	}
+std::unordered_set<int> SelectById(const T& set) {
+	std::unordered_set<int> subset;
+	int id;
 
 	while (true) {
-		cout << "Enter the ID of css (0 to exit): ";
-		cs_id = GetCorrectNumber(0, numeric_limits<int>::max()); 
-		if (cs_id == 0) break;
+		std::cout << "input id(0 for exit): ";
+		id = GetCorrectNumber<int>(0, 1000);
 
-		if (cssmap.count(cs_id) == 1) {
-			int numWorkshops = cssmap[cs_id].GetNumberofWorkshops();
-			int new_act;
-			while (true) {
-				cout << "Enter new number of active workshops (0 to exit, 0 to " << numWorkshops << "): ";
-				new_act = GetCorrectNumber(0, numWorkshops);
-				if (new_act >= 0 && new_act <= numWorkshops) {
-					cssmap[cs_id].SetNumberofActiveWorkshops(new_act);
-					cout << "Number of active workshops updated to: " << new_act << endl;
-					break; 
-				}
-				else {
-					cout << "Enter the number of active workshops from 0 to " << numWorkshops << endl;
-				}
-			}
-		}
-		else {
-			cout << "No CS with this ID" << std::endl;
+		if (id == 0) return subset;
+
+		if (set.contains(id)) subset.emplace(id);
+	}
+}
+
+template<typename T, typename K>
+bool CheckByName(const T& obj, const K name) {
+	return obj.GetName().find(name) != std::string::npos;
+}
+
+
+template<typename T, typename K>
+void FindByFilter(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj, Filter<T, K> func, const K param) {
+	for (const auto& pair : obj) {
+		if (func(pair.second, param)) {
+			selected_obj.emplace(pair.first);
 		}
 	}
 }
+
+template<typename T>
+void FindByName(const std::unordered_map<int, T>& set, std::unordered_set<int>& subset) {
+	std::string name;
+	std::cout << "Enter the name to search for: ";
+	std::cin.ignore();
+	std::getline(std::cin, name);
+
+	FindByFilter(set, subset, CheckByName, name);
+}
+/*
+template<typename T>
+void FindByName(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj) {
+	cout << "input name: ";
+	string name;
+	INPUT_LINE(std::cin, name);
+
+	FindByFilter(obj, selected_obj, CheckByName, name);
+}
+*/
+template<typename T>
+void SelectAll(const unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {
+	for (const auto& pair : obj) {
+		selected_obj.emplace(pair.first);
+	}
+}
+/*
+template<typename T>
+void delete_selectedObj(unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {
+	for (auto it = selected_obj.begin(); it != selected_obj.end();) {
+		erase_obj(obj, *it);
+		it = selected_obj.erase(it);
+	}
+	cout << " objects was erased!" << std::endl;
+}*/
 

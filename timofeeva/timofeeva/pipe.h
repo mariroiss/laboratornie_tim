@@ -9,7 +9,7 @@ class Pipe
 {
 private:
     
-    string namepipe;
+    string name;
     double length;
     int diameter;
     bool repair;
@@ -20,27 +20,17 @@ private:
 public:
     Pipe();
     int GetId();
-    string GetNamePipe();
+    string GetName() const;
     static int Get_currentid();
     void Clear_currentid();
     static void set_currentid(const unordered_map<int, Pipe>& data);
-    bool GetRepair();
+    bool GetRepair() const;
     void AddPipe();
     void ShowPipe();
-    string name;
     void ChangeRepair();
     
     void pipe_save(ofstream& file) const;
     Pipe(ifstream& file);
 };
-
-template <typename T>
-void showp(unordered_map<int, T>& map)
-{
-    for (auto& pair : map)
-    {
-        pair.second.ShowPipe();
-    }
-}
 
 

@@ -22,14 +22,13 @@ public:
     CS();
     int GetId();
     void AddCS();
-    string GetNameCS();
+    string GetName() const;
     static int Get_currentid();
     void Clear_currentid();
     static void set_currentid(const unordered_map<int, CS>& data);
-    int GetNumberofWorkshops();
-    int GetNumberofActiveWorkshops();
+    int GetNumberofWorkshops() const;
+    int GetNumberofActiveWorkshops() const;
     int GetEffeciency();
-    //static int maxid;
     void SetNumberofActiveWorkshops(int new_act_workshops);
     void cs_show();
     CS(ifstream& file);
@@ -37,14 +36,4 @@ public:
 
 
 };
-
-
-template <typename T>
-void showc(unordered_map<int, T>& map)
-{
-    for (auto& pair : map)
-    {
-        pair.second.cs_show();
-    }
-}
 

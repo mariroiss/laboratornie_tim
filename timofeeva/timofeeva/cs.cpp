@@ -17,16 +17,16 @@ int CS::GetId()
     return this->id;
 }
 
-string CS::GetNameCS()
+string CS::GetName() const
 {
-    return this->name;
+    return name;
 }
 
-int CS::GetNumberofWorkshops() {
+int CS::GetNumberofWorkshops() const {
     return this->workshops;
 }
 
-int CS::GetNumberofActiveWorkshops() {
+int CS::GetNumberofActiveWorkshops() const {
     return this->act_workshops;
 }
 
@@ -83,7 +83,7 @@ void CS::AddCS()
     cout << "Number of workshops: " << endl;
     workshops = GetCorrectNumber(1, 10000);
     cout << "Number of active workshops(must be < total workshops) " << endl;
-    act_workshops = GetCorrectNumber(1, workshops);
+    act_workshops = GetCorrectNumber(0, workshops);
     cout << "Efficiency status (1...100)% : " << endl;
     efficiency = GetCorrectNumber(0, 100);
     id = ++current_csid;
