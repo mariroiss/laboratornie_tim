@@ -75,3 +75,19 @@ void GasNetwork::selectAllcs() {
         this->selected_cs.emplace(pair.first);
     }
 }
+
+
+bool GasNetwork::CheckByDia(const Pipe& pipe, const int& dia) {
+    return pipe.get_diameter() == dia;
+}
+
+int GasNetwork::FindByDiameter(const int& diameter) {
+    for (const auto& [id, pipe] : this->pipesmap) {
+        if (!pipe.IsUsing() && this->CheckByDia(pipe, diameter)) return pipe.GetId();
+    }
+
+    Pipe pipe(diameter);
+    this->pipesmap.emplace(pipe.GetId(), pipe);
+
+    return pipe.GetId();
+}

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <unordered_map>
+#include <unordered_set>
 #include <fstream>
 
 using namespace std;
@@ -17,6 +17,8 @@ private:
     int efficiency;
     int id;
     static int current_csid;
+
+    std::vector<std::unordered_set<int>> links = { {}, {} };
 
 public:
     CS();
@@ -35,6 +37,11 @@ public:
     void cs_save(ofstream& file);
     void edit_workshop_status(int choice);
 
+    std::vector<std::unordered_set<int>> get_links() const;
+    bool IsUsing() const;
+    bool addLink(const int& pos, const int& id);
+    bool deleteLink(const int& pos, const int& id);
 
+    void set_links(std::ifstream& file, const int& pos);
 };
 

@@ -17,6 +17,7 @@ private:
     int id ;
     static int current_pipeid;
 
+    vector<int> links = {0, 0};
 
 public:
     Pipe();
@@ -29,6 +30,12 @@ public:
     void AddPipe();
     void Show() const;
     void ChangeRepair();
+    int get_diameter() const;
+
+    bool IsUsing() const;
+    vector<int> get_links() const;
+    bool set_links(const int& out, const int& in);
+    Pipe(const int& dia);
     
     void pipe_save(ofstream& file) const;
     Pipe(ifstream& file);

@@ -27,3 +27,10 @@ void FilterCSMenu(GasNetwork& gnet);
 
 void PrintEditCSMenu();
 void EditCSMenu(GasNetwork& gnet);
+
+
+void print_GNetwork_menu();
+void GNetwork_menu(GasNetwork& gnet);
+
+void print_edit_GNetwork_menu();
+void edit_GNetwork_menu(GasNetwork& gnet);

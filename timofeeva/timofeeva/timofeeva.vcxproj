@@ -138,9 +138,11 @@
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="timofeeva.cpp" />
     <ClCompile Include="gn_utils.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cs.h" />
+    <ClInclude Include="dfs_by_Makkoveeva.h" />
     <ClInclude Include="filters.h" />
     <ClInclude Include="GN.h" />
     <ClInclude Include="gn_utils.h" />

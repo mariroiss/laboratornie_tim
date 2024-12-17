@@ -2,9 +2,10 @@
 #include "utils.h"
 #include <string>
 #include <unordered_map>
-
+#include <sstream>
 
 using namespace std;
+
 
 int CS::current_csid = 0;
 
@@ -42,6 +43,17 @@ void CS::Clear_currentid() {
     CS::current_csid = 1;
 }
 
+
+bool CS::IsUsing() const {
+    return (this->links[0].size()) || (this->links[1].size());
+}
+
+
+std::vector<std::unordered_set<int>> CS::get_links() const {
+    return this->links;
+}
+
+
 void CS::set_currentid(const unordered_map<int, CS>& data) {
     CS::current_csid = Get_maxid(data);
 }
@@ -56,6 +68,35 @@ CS::CS()
 }
 
 
+bool CS::addLink(const int& pos, const int& id) {
+    this->links[pos].emplace(id);
+    return 1;
+}
+
+
+bool CS::deleteLink(const int& pos, const int& id) {
+    if (this->links[pos].contains(id)) {
+        this->links[pos].erase(id);
+        return 1;
+    }
+
+    return 0;
+}
+
+
+void CS::set_links(std::ifstream& file, const int& pos) {
+    string line;
+    getline(file >> std::ws, line);
+    istringstream iss(line);
+    int id;
+    while (iss >> id)
+        if (id)
+            this->addLink(pos, id);
+    file.clear();
+}
+
+
+
 void CS::cs_save(ofstream& file)
 {
     file << "Cs" << endl;
@@ -64,6 +105,18 @@ void CS::cs_save(ofstream& file)
     file << workshops << endl;
     file << act_workshops << endl;
     file << efficiency << endl;
+
+    if (this->links[0].size())
+        for (const auto& id : this->links[0]) file << id << " ";
+    else
+        file << 0;
+    file << endl;
+
+    if (this->links[1].size())
+        for (const auto& id : this->links[1]) file << id << " ";
+    else
+        file << 0;
+    file << endl;
 }
 
 CS::CS(ifstream& file)
@@ -74,6 +127,9 @@ CS::CS(ifstream& file)
     file >> this->workshops;
     file >> this->act_workshops;
     file >> this->efficiency;
+    file.ignore(10000, '\n');
+    this->set_links(file, 0);
+    this->set_links(file, 1);
 }
 
 void CS::AddCS()
@@ -105,6 +161,17 @@ void CS::Show() const
         cout << " Workshops: " << workshops << endl;
         cout << " Active workshops: " << act_workshops << endl;
         cout << " Efficiency: " << efficiency << "/100" << endl;
+        cout << "links{" << endl;
+        cout << "   " << "in: ";
+        for (const auto& id : links[0]) 
+            cout << id << " ";
+        cout << endl;
+        cout << "   " << "out: ";
+        for (const auto& id : links[1]) 
+            cout << id << " ";
+        cout << endl;
+        cout << "}" << endl;
+        cout << "--------------" << endl;
     }
 }
 

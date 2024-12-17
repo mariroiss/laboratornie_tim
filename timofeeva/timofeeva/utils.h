@@ -36,3 +36,6 @@ int Get_maxid(const std::unordered_map<int, T>& objs) {
     }
     return id;
 }
+
+
+int GetCorrectDiameter();

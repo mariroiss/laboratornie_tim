@@ -344,3 +344,89 @@ void EditCSMenu(GasNetwork& gnet) {
     }
     return;
 }
+
+
+// Gas Network
+void print_GNetwork_menu() {
+    cout << endl;
+    cout << endl;
+    cout << "-----Menu GTN-----\n";
+    cout << "0 - back\n";
+    cout << "1 - create graph\n";
+    cout << "2 - print graph\n";
+    cout << "3 - make TS\n";
+    cout << "4 - edit GTN\n";
+    cout << "--------------\n";
+}
+
+void GNetwork_menu(GasNetwork& gnet) {
+    while (true) {
+        print_GNetwork_menu();
+
+        int choice = GetCorrectNumber(0, 4);
+
+        switch (choice)
+        {
+        case 0:
+            return;
+        case 1:
+            gnet.createGraph();
+            
+            break;
+        case 2:
+            gnet.showGraph();
+            
+            break;
+        case 3:
+            gnet.make_TS();
+            break;
+        case 4:
+            edit_GNetwork_menu(gnet);
+            break;
+        default:
+            cout << "You choose the number, that not exist!\n";
+            break;
+        }
+    }
+}
+
+void print_edit_GNetwork_menu() {
+    cout << endl;
+    cout << endl;
+    cout << "-----Menu edit GTN-----\n";
+    cout << "0 - back\n";
+    cout << "1 - add node\n";
+    cout << "2 - delete pipes\n";
+    cout << "3 - delete CSs\n";
+    cout << "4 - clear graph\n";
+    cout << "--------------\n";
+}
+
+void edit_GNetwork_menu(GasNetwork& gnet) {
+    while (true) {
+        print_edit_GNetwork_menu();
+
+        int choice = GetCorrectNumber(0, 4);
+
+        switch (choice)
+        {
+        case 0:
+            return;
+        case 1:
+            gnet.connect();
+            break;
+        case 2:
+            gnet.delPipe();
+            break;
+        case 3:
+            gnet.delCS();
+            break;
+        case 4:
+            gnet.clearGraph();
+            break;
+        default:
+            cout << "You choose the number, that not exist!\n";
+            break;
+        }
+    }
+}

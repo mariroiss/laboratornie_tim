@@ -16,10 +16,11 @@ void PrintMainMenu()
     cout << "Choose command" << endl;
     cout << "1. Working with pipes" << endl;
     cout << "2. Working with CS" << endl;
-    cout << "3. Show all objects" << endl;
-    cout << "4. Save" << endl;
-    cout << "5. Download" << endl;
-    cout << "6. Exit " << endl;
+    cout << "3. Gas Network" << endl;
+    cout << "4. Show all objects" << endl;
+    cout << "5. Save" << endl;
+    cout << "6. Download" << endl;
+    cout << "7. Exit " << endl;
 }
 
 int main() {
@@ -34,7 +35,7 @@ int main() {
     int command;
     while (true) {
         PrintMainMenu();
-        command = GetCorrectNumber(1, 6);
+        command = GetCorrectNumber(1, 7);
         switch (command) {
         case 1:
         {
@@ -49,21 +50,26 @@ int main() {
         }
         case 3:
         {
+            GNetwork_menu(gnet);
+            break;
+        }
+        case 4:
+        {
             gnet.ShowAll();
             break;
         };
-        case 4:
+        case 5:
         {
             gnet.SaveAll();
             break;
         };
         
-        case 5:
+        case 6:
         {
             gnet.Download();
             break;
         };
-        case 6:
+        case 7:
         {
             return 0;
             break;
