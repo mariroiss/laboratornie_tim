@@ -1,29 +1,29 @@
 #pragma once
-#include <unordered_set>
-#include <unordered_map>
+#include "GN.h"
+
 using namespace std;
 
 void PrintPipesMenu();
-void PipesMenu(unordered_map<int, Pipe>& pipesmap, std::unordered_set<int> &selected_pipes);
+void PipesMenu(GasNetwork& gnet);
 
 void PrintSelectedPipesMenu();
-void SelectedPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes);
+void SelectedPipesMenu(GasNetwork& gnet);
 
 void PrintFilterPipesMenu();
-void FilterPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes);
+void FilterPipesMenu(GasNetwork& gnet);
 
 void PrintEditPipesMenu();
-void EditPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes);
+void EditPipesMenu(GasNetwork& gnet);
 
 
 void PrintCSMenu();
-void CSMenu(unordered_map<int, CS>& cssmap, std::unordered_set<int>& selected_cs);
+void CSMenu(GasNetwork& gn);
 
 void PrintSelectedCSMenu();
-void SelectedCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs);
+void SelectedCSMenu(GasNetwork& gnet);
 
 void PrintFilterCSMenu();
-void FilterCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs);
+void FilterCSMenu(GasNetwork& gnet);
 
 void PrintEditCSMenu();
-void EditCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs);
+void EditCSMenu(GasNetwork& gnet);

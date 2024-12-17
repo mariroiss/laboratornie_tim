@@ -1,25 +1,13 @@
 #pragma once
-#include "utils.h"
-#include <unordered_map>
-#include <unordered_set>
 #include <string>
-#include "pipe.h"
-#include "cs.h"
 #include <sstream>
-
+#include "GN.h"
 
 using namespace std;
-template<typename T, typename K>
-using Filter = bool(*)(const T& obj, const K param);
 
-
-bool CheckByIsWorking(const Pipe& pipe, const bool repair);
-void FindByIsWorking(const unordered_map<int, Pipe>& pipes, unordered_set<int>& selected_pipes);
-bool CheckByProcent(const CS& cs, const double percent_threshold);
-void FindByUnusedWorkshops(const std::unordered_map<int, CS>& list_of_CSs, std::unordered_set<int>& selected_CSs);
 
 template<typename T>
-std::unordered_set<int> SelectById(const T& set) {
+std::unordered_set<int> GasNetwork::SelectById(const T& set) {
 	std::unordered_set<int> subset;
 	int id;
 
@@ -34,36 +22,20 @@ std::unordered_set<int> SelectById(const T& set) {
 }
 
 template<typename T, typename K>
-bool CheckByName(const T& obj, const K name) {
+bool GasNetwork::CheckByName(const T& obj, const K& name) {
 	return obj.GetName().find(name) != std::string::npos;
 }
 
 
 template<typename T, typename K>
-void FindByFilter(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj, Filter<T, K> func, const K param) {
+void GasNetwork::FindByFilter(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj, Filter<T, K> func, const K param) {
 	for (const auto& pair : obj) {
-		if (func(pair.second, param)) {
+		if ((this->*func)(pair.second, param)) {
 			selected_obj.emplace(pair.first);
 		}
 	}
 }
 
-
-template<typename T>
-void FindByName(const std::unordered_map<int, T>& obj, std::unordered_set<int>& selected_obj) {
-	cout << "input name: ";
-	string name;
-	INPUT_LINE(std::cin, name);
-
-	FindByFilter(obj, selected_obj, CheckByName, name);
-}
-
-template<typename T>
-void SelectAll(const unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {
-	for (const auto& pair : obj) {
-		selected_obj.emplace(pair.first);
-	}
-}
 
 template<typename T>
 void delete_selectedObj(unordered_map<int, T>& obj, unordered_set<int>& selected_obj) {

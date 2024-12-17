@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <unordered_map>
+
 using namespace std;
 
 class Pipe
@@ -19,7 +20,7 @@ private:
 
 public:
     Pipe();
-    int GetId();
+    int GetId() const;
     string GetName() const;
     static int Get_currentid();
     void Clear_currentid();

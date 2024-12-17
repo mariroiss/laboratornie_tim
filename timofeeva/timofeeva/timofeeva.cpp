@@ -1,18 +1,15 @@
-﻿#include "pipe.h"
-#include "cs.h"
-#include "utils.h"
-#include "filters.h"
+﻿#include "filters.h"
 #include <string>
 #include <iostream>
-#include <unordered_map>
 #include "menu.h"
 #include "logging.h"
 #include <format>
 #include <chrono>
-
+#include "GN.h"
 
 using namespace std;
 using namespace chrono;
+
 
 void PrintMainMenu()
 {
@@ -31,11 +28,8 @@ int main() {
     if (logfile)
         cerr_out.redirect(logfile);
 
-    unordered_map<int, Pipe> pipesmap;
-    unordered_set<int> selected_pipes;
+    GasNetwork gnet;
 
-    unordered_map<int, CS> cssmap; 
-    unordered_set<int> selected_cs;
 
     int command;
     while (true) {
@@ -44,29 +38,29 @@ int main() {
         switch (command) {
         case 1:
         {
-            PipesMenu(pipesmap, selected_pipes);
+            PipesMenu(gnet);
             break;
         }
    
         case 2:
         {
-            CSMenu(cssmap, selected_cs);
+            CSMenu(gnet);
             break;
         }
         case 3:
         {
-            ShowAll(pipesmap, cssmap);
+            gnet.ShowAll();
             break;
         };
         case 4:
         {
-            SaveAll(pipesmap, cssmap);
+            gnet.SaveAll();
             break;
         };
         
         case 5:
         {
-            Download(pipesmap, cssmap, selected_pipes, selected_cs);
+            gnet.Download();
             break;
         };
         case 6:

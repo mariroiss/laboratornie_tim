@@ -13,7 +13,7 @@ int Pipe::Get_currentid() {
 	return Pipe::current_pipeid;
 }
 
-int Pipe::GetId()
+int Pipe::GetId() const
 {
 	return this->id;
 }

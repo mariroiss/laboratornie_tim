@@ -1,17 +1,10 @@
 #include <iostream>
-#include "pipe.h"
-#include "cs.h"
 #include "menu.h"
-#include "utils.h"
-// #include "logger.h"
-#include <unordered_map>
-#include <unordered_set>
 #include <chrono>
 #include <format>
-#include "filters.h"
-
 
 using namespace std;
+
 
 // pipe menu
 void PrintPipesMenu() {
@@ -23,7 +16,7 @@ void PrintPipesMenu() {
 }
 
 
-void PipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int> &selected_pipes) {
+void PipesMenu(GasNetwork& gnet) {
     while (true) {
         PrintPipesMenu();
         int command = GetCorrectNumber(0,2);
@@ -36,14 +29,12 @@ void PipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int> &selected_
         }
         case 1:
         {
-            Pipe p;
-            p.AddPipe();
-            pipesmap.emplace(p.GetId(), p);
+            gnet.addPipe();
             break;
         }
        case 2:
         {
-            SelectedPipesMenu(pipesmap, selected_pipes);
+            SelectedPipesMenu(gnet);
             break;
         }
         }
@@ -62,7 +53,7 @@ void PrintSelectedPipesMenu() {
     cout << "5. Remove from selected" << endl;
 }
 
-void SelectedPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes) {
+void SelectedPipesMenu(GasNetwork& gnet) {
     while (true) {
         PrintSelectedPipesMenu();
         int command = GetCorrectNumber(0,5);
@@ -75,27 +66,27 @@ void SelectedPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& s
         }
         case 1:
         {
-            FilterPipesMenu(pipesmap, selected_pipes);
+            FilterPipesMenu(gnet);
             break;
         }
         case 2:
         {
-            PrintSelected(pipesmap, selected_pipes);
+            gnet.PrintSelectedPipes();
             break;
         }
         case 3:
         {
-            EditPipesMenu(pipesmap, selected_pipes);
+            EditPipesMenu(gnet);
             break;
         }
         case 4:
         {
-            selected_pipes = SelectById(selected_pipes);
+            gnet.selectPipesByID(1);
             break;
         }
         case 5:
         {
-            CLEAR_SELECTED(selected_pipes);
+            gnet.clearSelectedPipes();
             break;
         }
         }
@@ -113,7 +104,7 @@ void PrintFilterPipesMenu() {
     cout << "4. Selected by repair status" << endl;
 }
 
-void FilterPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes) {
+void FilterPipesMenu(GasNetwork& gnet) {
     while (true) {
         PrintFilterPipesMenu();
         int command = GetCorrectNumber(0,4);
@@ -126,22 +117,22 @@ void FilterPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& sel
         }
         case 1:
         {
-            SelectAll(pipesmap, selected_pipes);
+            gnet.selectAllpipes();
             return;
         }
         case 2:
         {
-            selected_pipes = SelectById(pipesmap);
+            gnet.selectPipesByID(0);
             return;
         }
         case 3:
         {
-            FindByName(pipesmap, selected_pipes);
+            gnet.Find_pipesByName();
             return;
         }
         case 4:
         {
-            FindByIsWorking(pipesmap, selected_pipes);
+            gnet.FindByIsWorking();
             break;
         }
         }
@@ -157,7 +148,7 @@ void PrintEditPipesMenu() {
     cout << "2. Delete selected pipes" << endl;
 }
 
-void EditPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selected_pipes) {
+void EditPipesMenu(GasNetwork& gnet) {
     while (true) {
         PrintEditPipesMenu();
         int command = GetCorrectNumber(0,2);
@@ -170,12 +161,12 @@ void EditPipesMenu(unordered_map<int, Pipe>& pipesmap, unordered_set<int>& selec
         }
         case 1:
         {
-            change_selectedPipes_workStatus(pipesmap, selected_pipes);
+            gnet.change_selectedPipes_workStatus();
             break;
         }
         case 2:
         {
-            delete_selectedObj(pipesmap, selected_pipes);
+            gnet.delete_selectedPipes();
             break;
         }
         }
@@ -196,7 +187,7 @@ void PrintCSMenu() {
 }
 
 
-void CSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs) {
+void CSMenu(GasNetwork& gnet) {
     while (true) {
         PrintCSMenu();
         int command = GetCorrectNumber(0,2);
@@ -209,14 +200,12 @@ void CSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs) {
         }
         case 1:
         {
-            CS c;
-            c.AddCS();
-            cssmap.emplace(c.GetId(), c);
+            gnet.addCS();
             break;
         }
         case 2:
         {
-            SelectedCSMenu(cssmap, selected_cs);
+            SelectedCSMenu(gnet);
             break;
         }
         }
@@ -235,7 +224,7 @@ void PrintSelectedCSMenu() {
     cout << "5. Remove from selected" << endl;
 }
 
-void SelectedCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs) {
+void SelectedCSMenu(GasNetwork& gnet) {
     while (true) {
         PrintSelectedCSMenu();
         int command = GetCorrectNumber(0,5);
@@ -248,27 +237,27 @@ void SelectedCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected
         }
         case 1:
         {
-            FilterCSMenu(cssmap, selected_cs);
+            FilterCSMenu(gnet);
             break;
         }
         case 2:
         {
-            PrintSelected(cssmap, selected_cs);
+            gnet.PrintSelectedCS();
             break;
         }
         case 3:
         {
-            EditCSMenu(cssmap, selected_cs);
+            EditCSMenu(gnet);
             break;
         }
         case 4:
         {
-            selected_cs = SelectById(selected_cs);
+            gnet.selectCSByID(1);
             break;
         }
         case 5:
         {
-            CLEAR_SELECTED(selected_cs);
+            gnet.clearSelectedCS();
             break;
         }
         }
@@ -286,7 +275,7 @@ void PrintFilterCSMenu() {
     cout << "4. Selected by unused workshops" << endl;
 }
 
-void FilterCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs) {
+void FilterCSMenu(GasNetwork& gnet) {
     while (true) {
         PrintFilterCSMenu();
         int command = GetCorrectNumber(0,4);
@@ -299,22 +288,22 @@ void FilterCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_c
         }
         case 1:
         {
-            SelectAll(cssmap, selected_cs);
+            gnet.selectAllcs();
             return;
         }
         case 2:
         {
-            selected_cs = SelectById(cssmap);
+            gnet.selectCSByID(0);
             return;
         }
         case 3:
         {
-            FindByName(cssmap, selected_cs);
+            gnet.Find_csByName();
             return;
         }
         case 4:
         {
-            FindByUnusedWorkshops(cssmap, selected_cs);
+            gnet.FindByUnusedWorkshops();
             break;
         }
         }
@@ -330,7 +319,7 @@ void PrintEditCSMenu() {
     cout << "2. Delete selected cs" << endl;
 }
 
-void EditCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs) {
+void EditCSMenu(GasNetwork& gnet) {
     while (true) {
         PrintEditCSMenu();
         int command = GetCorrectNumber(0,2);
@@ -343,12 +332,12 @@ void EditCSMenu(unordered_map<int, CS>& cssmap, unordered_set<int>& selected_cs)
         }
         case 1:
         {
-            EditCS(cssmap, selected_cs);
+            gnet.EditCS();
             break;
         }
         case 2:
         {
-            delete_selectedObj(cssmap, selected_cs);
+            gnet.delete_selectedCS();
             break;
         }
         }

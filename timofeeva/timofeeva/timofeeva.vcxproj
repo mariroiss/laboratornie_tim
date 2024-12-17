@@ -120,6 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,15 +132,18 @@
   <ItemGroup>
     <ClCompile Include="cs.cpp" />
     <ClCompile Include="filters.cpp" />
+    <ClCompile Include="GN.cpp" />
     <ClCompile Include="logging.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="timofeeva.cpp" />
-    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="gn_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cs.h" />
     <ClInclude Include="filters.h" />
+    <ClInclude Include="GN.h" />
+    <ClInclude Include="gn_utils.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="pipe.h" />
