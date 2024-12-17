@@ -27,7 +27,6 @@ void PrintMainMenu()
 
 int main() {
     redirect_output_wrapper cerr_out(cerr);
-    //string time = format("{:%d_%m_%Y %H_%M_%OS}", system_clock::now);
     ofstream logfile("log.txt");
     if (logfile)
         cerr_out.redirect(logfile);
