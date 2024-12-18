@@ -1,6 +1,6 @@
 Pipe
 5
-Mkad 1
+sdfa
 213
 500
 1
@@ -8,7 +8,7 @@ Mkad 1
 0
 Pipe
 4
-Kievk 101
+djzxm,fndsiuae
 23
 700
 0
@@ -16,7 +16,7 @@ Kievk 101
 0
 Pipe
 2
-mkad 47
+dsi sdajoiasad 
 1000
 700
 0
@@ -42,7 +42,7 @@ Pipe
 8
 124
 1
-1400
+1000
 1
 0
 0
@@ -80,7 +80,7 @@ lhdfjhldshj
 3
 CS
 3
-SpB
+ewdwqs
 100
 100
 100

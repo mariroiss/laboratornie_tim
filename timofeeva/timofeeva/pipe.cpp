@@ -128,15 +128,15 @@ void Pipe::Show() const
 	{
 		cout << "ID " << id << endl;
 		cout << "Name: " << name << endl;
-		cout << " Length: " << length << endl;
-		cout << " Diameter: " << diameter << endl;
-		cout << " Repair: " << repair << endl;
+		cout << "Length: " << length << endl;
+		cout << "Diameter: " << diameter << endl;
+		cout << "Repair: " << repair << endl;
 		cout << "links{" << endl
 			<< "   " << "out: "
 			<< links[0] << " " << endl
 			<< "   " << "in: "
 			<< links[1] << " "
 			<< endl << "}" << endl
-			<< "--------------" << endl;
+			<< endl;
 	}
 }

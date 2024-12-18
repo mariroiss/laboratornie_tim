@@ -350,13 +350,13 @@ void EditCSMenu(GasNetwork& gnet) {
 void print_GNetwork_menu() {
     cout << endl;
     cout << endl;
-    cout << "-----Menu GTN-----\n";
+    cout << "Menu GTN\n";
     cout << "0 - back\n";
     cout << "1 - create graph\n";
     cout << "2 - print graph\n";
     cout << "3 - make TS\n";
     cout << "4 - edit GTN\n";
-    cout << "--------------\n";
+    cout << endl;
 }
 
 void GNetwork_menu(GasNetwork& gnet) {
@@ -393,13 +393,13 @@ void GNetwork_menu(GasNetwork& gnet) {
 void print_edit_GNetwork_menu() {
     cout << endl;
     cout << endl;
-    cout << "-----Menu edit GTN-----\n";
+    cout << "Menu edit GTN\n";
     cout << "0 - back\n";
     cout << "1 - add node\n";
     cout << "2 - delete pipes\n";
     cout << "3 - delete CSs\n";
     cout << "4 - clear graph\n";
-    cout << "--------------\n";
+    cout << endl;
 }
 
 void edit_GNetwork_menu(GasNetwork& gnet) {

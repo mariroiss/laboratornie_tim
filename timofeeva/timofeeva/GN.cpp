@@ -46,7 +46,7 @@ void GasNetwork::delete_selectedCS() {
             ++counter;
         }
         else {
-            std::cout << "CS " << *it << " used in graph" << std::endl;
+            cout << "CS " << *it << " used in graph" << endl;
             ++it;
         }
     }
@@ -62,7 +62,9 @@ void GasNetwork::createGraph() {
         if (pipes[1].size()) {
             for (const auto& pipe_id : pipes[1])
                 this->graph[id].emplace(this->pipesmap.at(pipe_id).get_links()[1]);
+                
         }
+
         else if (cs.IsUsing()) {
             this->graph[id] = {};
         }
@@ -164,6 +166,7 @@ void GasNetwork::clearGraph() {
 
 void GasNetwork::delPipe() {
     int id;
+    int a;
 
     while (true) {
         std::cout << "input id(0 for exit): ";
@@ -176,14 +179,19 @@ void GasNetwork::delPipe() {
             continue;
 
         if (this->pipesmap.at(id).IsUsing())
-            this->delete_GraphPipe(this->pipesmap.at(id));
+            cout << "do you really want to delete cs (0-no, 1-yes)";
+            a = GetCorrectNumber(0, 1);
+            if (a == 1)
+                this->delete_GraphPipe(this->pipesmap.at(id));
+            else
+                break;
     }
 }
 
 
 void GasNetwork::delCS() {
     int id;
-
+    int b;
     while (true) {
         std::cout << "input id(0 for exit): ";
         id = GetCorrectNumber(0, 10000);
@@ -195,6 +203,11 @@ void GasNetwork::delCS() {
             continue;
 
         if (this->cssmap.at(id).IsUsing())
-            this->delete_GraphCS(this->cssmap.at(id));
+            cout << "do you really want to delete cs (0-no, 1-yes)";
+            b = GetCorrectNumber(0, 1);
+            if (b == 1)
+                this->delete_GraphCS(this->cssmap.at(id));
+            else
+                break;
     }
 }

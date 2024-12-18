@@ -158,9 +158,9 @@ void CS::Show() const
     {
         cout << "ID " << id << endl;
         cout << "Name cs: " << name << endl;
-        cout << " Workshops: " << workshops << endl;
-        cout << " Active workshops: " << act_workshops << endl;
-        cout << " Efficiency: " << efficiency << "/100" << endl;
+        cout << "Workshops: " << workshops << endl;
+        cout << "Active workshops: " << act_workshops << endl;
+        cout << "Efficiency: " << efficiency << "/100" << endl;
         cout << "links{" << endl;
         cout << "   " << "in: ";
         for (const auto& id : links[0]) 
@@ -171,7 +171,7 @@ void CS::Show() const
             cout << id << " ";
         cout << endl;
         cout << "}" << endl;
-        cout << "--------------" << endl;
+        cout << endl;
     }
 }
 

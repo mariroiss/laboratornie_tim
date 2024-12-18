@@ -31,13 +31,10 @@ public:
 
     void delPipe();
     void delCS();
-
     void showGraph() const;
     void clearGraph();
-
     void createGraph();
     bool connect();
-
     bool make_TS();
 
 
