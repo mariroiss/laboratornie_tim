@@ -48,9 +48,31 @@ int Pipe::get_diameter() const {
 }
 
 
+int Pipe::get_length() const {
+	return this->length;
+}
+
+
 bool Pipe::set_links(const int& out, const int& in) {
 	this->links = { out, in };
 	return 1;
+}
+
+
+void Pipe::set_productivity() {
+	unordered_map<int, int> productivities = {
+		{500, 5},
+		{700, 12},
+		{1000, 30},
+		{1400, 95}
+	};
+
+	this->productivity = productivities[this->diameter];
+}
+
+
+int Pipe::get_productivity() const {
+	return this->productivity;
 }
 
 
@@ -62,11 +84,14 @@ Pipe::Pipe(const int& dia)
 	length = GetCorrectNumber(1, 10000);
 	cout << "diameter : ";
 	diameter = dia;
+	this->set_productivity();
+	cout << "productivity : " << productivity << endl;
 	cout << dia << endl;
 	cout << "Enter the repair status(1/0): " << endl;
 	repair = GetCorrectNumber(0, 1);
 	id = ++current_pipeid;
 }
+
 
 void Pipe::set_currentid(const unordered_map<int, Pipe>& data) {
 	Pipe::current_pipeid = Get_maxid(data);
@@ -77,6 +102,7 @@ Pipe::Pipe()
 	id = 0;
 	name = "None";
 	diameter = 0;
+	productivity = 0;
 	length = 0;
 	repair = false;
 }
@@ -88,6 +114,7 @@ void Pipe::pipe_save(ofstream& file) const
 	file << name << endl;
 	file << length << endl;
 	file << diameter << endl;
+	file << productivity << endl;
 	file << repair << endl;
 	file << links[0] << endl;
 	file << links[1] << endl;
@@ -100,6 +127,7 @@ Pipe::Pipe(ifstream& file)
 	getline(file >> ws, this->name);
 	file >> this->length;
 	file >> this->diameter;
+	file >> this->productivity;
 	file >> this->repair;
 	file >> this->links[0];
 	file >> this->links[1];
@@ -113,6 +141,8 @@ void Pipe::AddPipe()
 	length = GetCorrectNumber(1, 10000);
 	cout << "Enter the pipe diameter : " << endl;
 	diameter = GetCorrectDiameter();
+	this->set_productivity();
+	cout << "productivity : " << productivity << endl;
 	cout << "Enter the repair status(1/0): " << endl;
 	repair = GetCorrectNumber(0, 1);
 	id = ++current_pipeid;
@@ -130,6 +160,7 @@ void Pipe::Show() const
 		cout << "Name: " << name << endl;
 		cout << "Length: " << length << endl;
 		cout << "Diameter: " << diameter << endl;
+		cout << "productivity : " << productivity << endl;
 		cout << "Repair: " << repair << endl;
 		cout << "links{" << endl
 			<< "   " << "out: "

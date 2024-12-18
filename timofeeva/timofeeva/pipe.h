@@ -11,8 +11,9 @@ class Pipe
 private:
     
     string name;
-    double length;
+    int length;
     int diameter;
+    int productivity;
     bool repair;
     int id ;
     static int current_pipeid;
@@ -39,6 +40,8 @@ public:
     
     void pipe_save(ofstream& file) const;
     Pipe(ifstream& file);
+
+    int get_length() const;
+    void set_productivity();
+    int get_productivity() const;
 };
-
-

@@ -11,8 +11,14 @@ private:
     template<typename T, typename K>
     using Filter = bool(GasNetwork::*)(const T& obj, const K& param);
 
+    const int INF = std::numeric_limits<int>::max();
+
     std::unordered_map<int, std::unordered_set<int>> graph;
     std::vector<int> TSorder;
+
+    std::vector<int> min_path;
+    std::vector<int> maxFlow_path;
+    int maxFlow;
 
     std::unordered_map<int, Pipe> pipesmap;
     std::unordered_set<int> selected_pipes;
@@ -37,7 +43,26 @@ public:
     bool connect();
     bool make_TS();
 
+    std::unordered_set<int> get_IncidentPipes(const int& id_1, const int& id_2);
+    int getMINDistance(const int& id_1, const int& id_2);
 
+    template<typename T>
+    std::vector<T> metodDeikstra(T StartNode, T EndNode);
+    void displayMinimumPath();
+    void calculateMinimumDistance();
+
+    template<typename T>
+    bool bfs(T s, T t, std::unordered_map<T, T>& parent, std::unordered_map<T, std::unordered_map<T, int>>& capacity);
+
+    template<typename T>
+    std::vector<T> getMAXFlowPath(const T& source, const T& sink, const std::unordered_map<T, T>& parent);
+
+    template<typename T>
+    int edmondsKarp(const T& source, const T& sink);
+
+    int getSUMproductivity(const int& id_1, const int& id_2);
+    void show_maxFlow();
+    void count_maxFlow();
 
     template<typename T, typename K>
     bool CheckByName(const T& obj, const K& name);

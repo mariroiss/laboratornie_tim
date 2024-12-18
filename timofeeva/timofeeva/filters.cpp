@@ -8,7 +8,7 @@ bool GasNetwork::CheckByIsWorking(const Pipe& pipe, const bool& repair) {
 }
 
 void GasNetwork::FindByIsWorking() {
-    cout << "Enter repair sratus ";
+    cout << "Enter repair status ";
     int work_status = GetCorrectNumber<int>(0, 1);
 
     this->FindByFilter<Pipe, bool>(this->pipesmap, this->selected_pipes, &GasNetwork::CheckByIsWorking, work_status);

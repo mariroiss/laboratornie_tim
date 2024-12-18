@@ -2,6 +2,8 @@
 #include "GN.h"
 #include "gn_utils.h"
 #include "dfs_by_Makkoveeva.h"
+#include "Deikstra.h"
+#include "EdmondsKarp.h"
 
 using namespace std;
 
@@ -179,7 +181,7 @@ void GasNetwork::delPipe() {
             continue;
 
         if (this->pipesmap.at(id).IsUsing())
-            cout << "do you really want to delete cs (0-no, 1-yes)";
+            cout << "do you really want to delete pipe (0-no, 1-yes)";
             a = GetCorrectNumber(0, 1);
             if (a == 1)
                 this->delete_GraphPipe(this->pipesmap.at(id));
@@ -209,5 +211,165 @@ void GasNetwork::delCS() {
                 this->delete_GraphCS(this->cssmap.at(id));
             else
                 break;
+    }
+}
+
+
+
+std::unordered_set<int> GasNetwork::get_IncidentPipes(const int& id_1, const int& id_2) {
+    std::unordered_set<int> result = {};
+    auto neighbours_pipes = this->cssmap.at(id_1).get_links();
+    for (const auto& pipeID : neighbours_pipes[1]) {
+        const Pipe& pipe = this->pipesmap.at(pipeID);
+        if (pipe.get_links()[1] == id_2)
+            result.emplace(pipeID);
+    }
+
+    return result;
+}
+
+
+int GasNetwork::getMINDistance(const int& id_1, const int& id_2) {
+    const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
+
+    if (!incidentPipes.size())
+        return this->INF;
+
+    int min_len = this->INF;
+
+    for (const auto& pipeID : incidentPipes) {
+        if (this->pipesmap.at(pipeID).GetRepair()) {
+            const int& pipe_len = this->pipesmap.at(pipeID).get_length();
+            if (pipe_len < min_len)
+                min_len = pipe_len;
+        }
+    }
+
+    return min_len;
+}
+
+
+void GasNetwork::displayMinimumPath() {
+    cout << "Minimum path: ";
+    if (this->min_path.empty()) {
+        cout << "cant find min path!" << endl;
+        return;
+    }
+
+    if (this->min_path.size() > 1) {
+        int dist = 0;
+        for (int i = 0; i < this->min_path.size() - 1; ++i) {
+            dist += this->getMINDistance(this->min_path[i], this->min_path[i + 1]);
+            cout << this->min_path[i] << " ";
+        }
+        cout << this->min_path[this->min_path.size() - 1] << endl;
+        cout << "Total Distance = " << dist << endl;
+    }
+    else {
+        cout << this->min_path[0] << endl;
+        cout << "Total Distance = " << 0 << endl;
+    }
+    cout << endl;
+}
+
+
+void GasNetwork::calculateMinimumDistance() {
+    if (this->graph.empty()) {
+        cout << "The graph does not exist!" << endl;
+        return;
+    }
+
+    cout << "start id: ";
+    int start_id;
+
+    while (1) {
+        start_id = GetCorrectNumber(1, 10000);
+        if (this->cssmap.contains(start_id))
+            break;
+        else
+            cout << "input correct start id: " << endl;
+    }
+
+    cout << "end id: ";
+    int end_id;
+
+    while (1) {
+        end_id = GetCorrectNumber(1, 10000);
+        if (this->cssmap.contains(end_id))
+            break;
+        else
+            cout << "input correct end id: " << endl;
+    }
+
+    this->min_path = this->metodDeikstra(start_id, end_id);
+
+    this->displayMinimumPath();
+}
+
+
+int GasNetwork::getSUMproductivity(const int& id_1, const int& id_2) {
+    const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
+    int capacity = 0;
+
+    for (const auto& pipeID : incidentPipes) {
+        capacity += this->pipesmap.at(pipeID).get_productivity();
+    }
+
+    return capacity;
+}
+
+
+void GasNetwork::show_maxFlow() {
+    cout << "Way with max flow: ";
+    for (const auto& csID : this->maxFlow_path) {
+        cout << csID << " ";
+    }
+    cout << endl;
+
+    cout << "max flow = " << this->maxFlow << endl;
+}
+
+
+void GasNetwork::count_maxFlow() {
+    if (!this->graph.size()) {
+        cout << "The graph does not exist!" << endl;
+        cout << "Max flow = 0" << endl;
+        return;
+    }
+
+    
+    cout << "source id: ";
+    int source_id;
+
+    while (1) {
+        source_id = GetCorrectNumber(1, 10000);
+        if (this->cssmap.contains(source_id))
+            break;
+        else
+            cout << "input correct source id: " << endl;
+    }
+
+    cout << "sink id: ";
+    int sink_id;
+
+    while (1) {
+        sink_id = GetCorrectNumber(1, 10000);
+        if (this->cssmap.contains(sink_id))
+            break;
+        else
+            cout << "input correct sink id: " << endl;
+    }
+
+    std::vector<int> flowPath = this->metodDeikstra(source_id, sink_id);
+    if (!flowPath.size()) {
+        cout << "No way: max flow = 0" << endl;
+    }
+    else if (flowPath.size() == 1) {
+        cout << "max flow = INF" << endl;
+        cout << "max flow path: " << flowPath[0] << endl;
+    }
+    else {
+        this->maxFlow = this->edmondsKarp<int>(source_id, sink_id);
+        this->show_maxFlow();
     }
 }

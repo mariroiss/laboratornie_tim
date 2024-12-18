@@ -355,7 +355,9 @@ void print_GNetwork_menu() {
     cout << "1 - create graph\n";
     cout << "2 - print graph\n";
     cout << "3 - make TS\n";
-    cout << "4 - edit GTN\n";
+    cout << "4 - find min dist (Deikstra)\n";
+    cout << "5 - count max flow\n";
+    cout << "6 - edit Gas Network\n";
     cout << endl;
 }
 
@@ -363,7 +365,7 @@ void GNetwork_menu(GasNetwork& gnet) {
     while (true) {
         print_GNetwork_menu();
 
-        int choice = GetCorrectNumber(0, 4);
+        int choice = GetCorrectNumber(0, 6);
 
         switch (choice)
         {
@@ -375,12 +377,17 @@ void GNetwork_menu(GasNetwork& gnet) {
             break;
         case 2:
             gnet.showGraph();
-            
             break;
         case 3:
             gnet.make_TS();
             break;
         case 4:
+            gnet.calculateMinimumDistance();
+            break;
+        case 5:
+            gnet.count_maxFlow();
+            break;
+        case 6:
             edit_GNetwork_menu(gnet);
             break;
         default:
@@ -389,6 +396,7 @@ void GNetwork_menu(GasNetwork& gnet) {
         }
     }
 }
+
 
 void print_edit_GNetwork_menu() {
     cout << endl;
