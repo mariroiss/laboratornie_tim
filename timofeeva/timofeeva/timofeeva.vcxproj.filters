@@ -74,7 +74,7 @@
     <ClInclude Include="Deikstra.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="EdmondsKarp.h">
+    <ClInclude Include="EdmondsKarp_1.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

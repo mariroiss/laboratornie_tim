@@ -99,7 +99,7 @@ void CS::set_links(std::ifstream& file, const int& pos) {
 
 void CS::cs_save(ofstream& file)
 {
-    file << "Cs" << endl;
+    file << "CS"<< endl;
     file << id << endl;
     file << name << endl;
     file << workshops << endl;

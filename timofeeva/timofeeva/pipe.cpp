@@ -72,7 +72,7 @@ void Pipe::set_productivity() {
 
 
 int Pipe::get_productivity() const {
-	return this->productivity;
+	return this->productivity * this->repair;
 }
 
 

@@ -3,7 +3,7 @@
 #include "gn_utils.h"
 #include "dfs_by_Makkoveeva.h"
 #include "Deikstra.h"
-#include "EdmondsKarp.h"
+#include "EdmondsKarp_1.h"
 
 using namespace std;
 
@@ -217,9 +217,19 @@ void GasNetwork::delCS() {
 
 
 std::unordered_set<int> GasNetwork::get_IncidentPipes(const int& id_1, const int& id_2) {
+    //std::unordered_set<int> result = {};
+    //auto neighbours_pipes = this->cssmap.at(id_1).get_links();
+    //for (const auto& pipeID : neighbours_pipes[1]) {
+    //    const Pipe& pipe = this->pipesmap.at(pipeID);
+    //    if (pipe.get_links()[1] == id_2)
+    //        result.emplace(pipeID);
+    //}
+
+    //return result;
+
     std::unordered_set<int> result = {};
-    auto neighbours_pipes = this->cssmap.at(id_1).get_links();
-    for (const auto& pipeID : neighbours_pipes[1]) {
+    auto neighbours_pipes = this->cssmap.at(id_1).get_links()[1]; // выходящие трубы
+    for (const auto& pipeID : neighbours_pipes) {
         const Pipe& pipe = this->pipesmap.at(pipeID);
         if (pipe.get_links()[1] == id_2)
             result.emplace(pipeID);
@@ -307,7 +317,17 @@ void GasNetwork::calculateMinimumDistance() {
 }
 
 
+
 int GasNetwork::getSUMproductivity(const int& id_1, const int& id_2) {
+    //const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
+    //int capacity = 0;
+
+    //for (const auto& pipeID : incidentPipes) {
+    //    capacity += this->pipesmap.at(pipeID).get_productivity();
+    //}
+
+    //return capacity;
+
     const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
     int capacity = 0;
 
@@ -368,6 +388,10 @@ void GasNetwork::count_maxFlow() {
         cout << "max flow = INF" << endl;
         cout << "max flow path: " << flowPath[0] << endl;
     }
+    /*else if (flowPath.size() == 2) {
+        cout << "max flow = " << this->getSUMproductivity(source_id, sink_id) << endl;
+        cout << "max flow path: " << source_id << " " << sink_id << endl;
+    }*/
     else {
         this->maxFlow = this->edmondsKarp<int>(source_id, sink_id);
         this->show_maxFlow();

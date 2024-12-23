@@ -55,10 +55,10 @@ public:
     bool bfs(T s, T t, std::unordered_map<T, T>& parent, std::unordered_map<T, std::unordered_map<T, int>>& capacity);
 
     template<typename T>
-    std::vector<T> getMAXFlowPath(const T& source, const T& sink, const std::unordered_map<T, T>& parent);
+    int edmondsKarp(const T& source, const T& sink);
 
     template<typename T>
-    int edmondsKarp(const T& source, const T& sink);
+    std::vector<T> getMAXFlowPath(const T& source, const T& sink, std::unordered_map<T, T>& parent);
 
     int getSUMproductivity(const int& id_1, const int& id_2);
     void show_maxFlow();
