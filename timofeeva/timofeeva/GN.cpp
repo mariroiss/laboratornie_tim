@@ -74,7 +74,9 @@ void GasNetwork::createGraph() {
 }
 
 
-void GasNetwork::showGraph() const{
+void GasNetwork::showGraph(){
+    //this->createGraph();
+
     cout << "graph:" << endl;
     for (const auto& pair : this->graph) {
         cout << pair.first << " --> ";
@@ -144,8 +146,13 @@ bool GasNetwork::make_TS() {
 
 
 void GasNetwork::delete_GraphPipe(Pipe& pipe) {
-    this->cssmap.at(pipe.get_links()[0]).deleteLink(1, pipe.GetId());
-    this->cssmap.at(pipe.get_links()[1]).deleteLink(0, pipe.GetId());
+    auto links = pipe.get_links();
+
+    CS& cs_0 = this->cssmap.at(links[0]);
+    CS& cs_1 = this->cssmap.at(links[1]);
+
+    cs_0.deleteLink(1, pipe.GetId());
+    cs_1.deleteLink(0, pipe.GetId());
     pipe.set_links(0, 0);
 }
 
@@ -181,7 +188,7 @@ void GasNetwork::delPipe() {
             continue;
 
         if (this->pipesmap.at(id).IsUsing())
-            cout << "do you really want to delete pipe (0-no, 1-yes)";
+            cout << "do you really want to delete pipe (0-no, 1-yes): ";
             a = GetCorrectNumber(0, 1);
             if (a == 1)
                 this->delete_GraphPipe(this->pipesmap.at(id));
@@ -205,7 +212,7 @@ void GasNetwork::delCS() {
             continue;
 
         if (this->cssmap.at(id).IsUsing())
-            cout << "do you really want to delete cs (0-no, 1-yes)";
+            cout << "do you really want to delete cs (0-no, 1-yes): ";
             b = GetCorrectNumber(0, 1);
             if (b == 1)
                 this->delete_GraphCS(this->cssmap.at(id));
@@ -217,19 +224,9 @@ void GasNetwork::delCS() {
 
 
 std::unordered_set<int> GasNetwork::get_IncidentPipes(const int& id_1, const int& id_2) {
-    //std::unordered_set<int> result = {};
-    //auto neighbours_pipes = this->cssmap.at(id_1).get_links();
-    //for (const auto& pipeID : neighbours_pipes[1]) {
-    //    const Pipe& pipe = this->pipesmap.at(pipeID);
-    //    if (pipe.get_links()[1] == id_2)
-    //        result.emplace(pipeID);
-    //}
-
-    //return result;
-
     std::unordered_set<int> result = {};
-    auto neighbours_pipes = this->cssmap.at(id_1).get_links()[1]; // выходящие трубы
-    for (const auto& pipeID : neighbours_pipes) {
+    auto neighbours_pipes = this->cssmap.at(id_1).get_links();
+    for (const auto& pipeID : neighbours_pipes[1]) {
         const Pipe& pipe = this->pipesmap.at(pipeID);
         if (pipe.get_links()[1] == id_2)
             result.emplace(pipeID);
@@ -294,7 +291,7 @@ void GasNetwork::calculateMinimumDistance() {
 
     while (1) {
         start_id = GetCorrectNumber(1, 10000);
-        if (this->cssmap.contains(start_id))
+        if (this->graph.contains(start_id))
             break;
         else
             cout << "input correct start id: " << endl;
@@ -305,7 +302,7 @@ void GasNetwork::calculateMinimumDistance() {
 
     while (1) {
         end_id = GetCorrectNumber(1, 10000);
-        if (this->cssmap.contains(end_id))
+        if (this->graph.contains(end_id))
             break;
         else
             cout << "input correct end id: " << endl;
@@ -319,15 +316,6 @@ void GasNetwork::calculateMinimumDistance() {
 
 
 int GasNetwork::getSUMproductivity(const int& id_1, const int& id_2) {
-    //const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
-    //int capacity = 0;
-
-    //for (const auto& pipeID : incidentPipes) {
-    //    capacity += this->pipesmap.at(pipeID).get_productivity();
-    //}
-
-    //return capacity;
-
     const std::unordered_set<int> incidentPipes = this->get_IncidentPipes(id_1, id_2);
     int capacity = 0;
 
@@ -363,7 +351,7 @@ void GasNetwork::count_maxFlow() {
 
     while (1) {
         source_id = GetCorrectNumber(1, 10000);
-        if (this->cssmap.contains(source_id))
+        if (this->graph.contains(source_id))
             break;
         else
             cout << "input correct source id: " << endl;
@@ -374,7 +362,7 @@ void GasNetwork::count_maxFlow() {
 
     while (1) {
         sink_id = GetCorrectNumber(1, 10000);
-        if (this->cssmap.contains(sink_id))
+        if (this->graph.contains(sink_id))
             break;
         else
             cout << "input correct sink id: " << endl;
@@ -388,10 +376,6 @@ void GasNetwork::count_maxFlow() {
         cout << "max flow = INF" << endl;
         cout << "max flow path: " << flowPath[0] << endl;
     }
-    /*else if (flowPath.size() == 2) {
-        cout << "max flow = " << this->getSUMproductivity(source_id, sink_id) << endl;
-        cout << "max flow path: " << source_id << " " << sink_id << endl;
-    }*/
     else {
         this->maxFlow = this->edmondsKarp<int>(source_id, sink_id);
         this->show_maxFlow();

@@ -37,7 +37,7 @@ public:
 
     void delPipe();
     void delCS();
-    void showGraph() const;
+    void showGraph();
     void clearGraph();
     void createGraph();
     bool connect();

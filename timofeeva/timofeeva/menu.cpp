@@ -352,12 +352,11 @@ void print_GNetwork_menu() {
     cout << endl;
     cout << "Menu GTN\n";
     cout << "0 - back\n";
-    cout << "1 - create graph\n";
-    cout << "2 - print graph\n";
-    cout << "3 - make TS\n";
-    cout << "4 - find min dist (Deikstra)\n";
-    cout << "5 - count max flow\n";
-    cout << "6 - edit Gas Network\n";
+    cout << "1 - print graph\n";
+    cout << "2 - make TS\n";
+    cout << "3 - find min dist (Deikstra)\n";
+    cout << "4 - count max flow\n";
+    cout << "5 - edit Gas Network\n";
     cout << endl;
 }
 
@@ -365,29 +364,26 @@ void GNetwork_menu(GasNetwork& gnet) {
     while (true) {
         print_GNetwork_menu();
 
-        int choice = GetCorrectNumber(0, 6);
+        int choice = GetCorrectNumber(0, 5);
+        gnet.createGraph();
 
         switch (choice)
         {
         case 0:
             return;
         case 1:
-            gnet.createGraph();
-            
-            break;
-        case 2:
             gnet.showGraph();
             break;
-        case 3:
+        case 2:
             gnet.make_TS();
             break;
-        case 4:
+        case 3:
             gnet.calculateMinimumDistance();
             break;
-        case 5:
+        case 4:
             gnet.count_maxFlow();
             break;
-        case 6:
+        case 5:
             edit_GNetwork_menu(gnet);
             break;
         default:
@@ -422,16 +418,16 @@ void edit_GNetwork_menu(GasNetwork& gnet) {
             return;
         case 1:
             gnet.connect();
-            break;
+            return;
         case 2:
             gnet.delPipe();
-            break;
+            return;
         case 3:
             gnet.delCS();
-            break;
+            return;
         case 4:
             gnet.clearGraph();
-            break;
+            return;
         default:
             cout << "You choose the number, that not exist!\n";
             break;
