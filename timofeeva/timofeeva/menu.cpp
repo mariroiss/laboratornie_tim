@@ -418,7 +418,7 @@ void edit_GNetwork_menu(GasNetwork& gnet) {
             return;
         case 1:
             gnet.connect();
-            return;
+            break;
         case 2:
             gnet.delPipe();
             return;

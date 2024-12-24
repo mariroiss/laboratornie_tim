@@ -82,11 +82,10 @@ Pipe::Pipe(const int& dia)
 	INPUT_LINE(cin, this->name);
 	cout << "Enter the pipe length: " << endl;
 	length = GetCorrectNumber(1, 10000);
-	cout << "diameter : ";
-	diameter = dia;
+	this -> diameter = dia;
+	cout << "Diameter : " << endl << dia << endl;
 	this->set_productivity();
-	cout << "productivity : " << productivity << endl;
-	cout << dia << endl;
+	cout << "Productivity : " << endl << productivity << endl;
 	cout << "Enter the repair status(1/0): " << endl;
 	repair = GetCorrectNumber(0, 1);
 	id = ++current_pipeid;
@@ -140,9 +139,9 @@ void Pipe::AddPipe()
 	cout << "Enter the pipe length: " << endl;
 	length = GetCorrectNumber(1, 10000);
 	cout << "Enter the pipe diameter : " << endl;
-	diameter = GetCorrectDiameter();
+	diameter = GetCorrectDiameter(); 
 	this->set_productivity();
-	cout << "productivity : " << productivity << endl;
+	cout << "Productivity : " << productivity << endl;
 	cout << "Enter the repair status(1/0): " << endl;
 	repair = GetCorrectNumber(0, 1);
 	id = ++current_pipeid;
@@ -160,7 +159,7 @@ void Pipe::Show() const
 		cout << "Name: " << name << endl;
 		cout << "Length: " << length << endl;
 		cout << "Diameter: " << diameter << endl;
-		cout << "productivity : " << productivity << endl;
+		cout << "Productivity : " << productivity << endl;
 		cout << "Repair: " << repair << endl;
 		cout << "links{" << endl
 			<< "   " << "out: "
